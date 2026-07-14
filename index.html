@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ο Αόρατος Γραμματέας — 24/7 Patient Concierge για Ιατρεία</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e1b19;
+    --bg-alt:#132625;
+    --bg-card:#16302d;
+    --ink:#f3efe2;
+    --ink-dim:#a9bab3;
+    --gold:#c9a227;
+    --gold-dim:#8f7420;
+    --teal:#4a9683;
+    --coral:#c2543c;
+    --line:rgba(243,239,226,0.12);
+    --radius:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  h1,h2,h3{ font-family:'Fraunces',serif; font-weight:600; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+  a{color:inherit;}
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  section{ padding:110px 0; position:relative; }
+  .eyebrow{
+    text-transform:uppercase; letter-spacing:0.16em; font-size:12.5px;
+    color:var(--gold); font-weight:600; margin-bottom:18px; display:block;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--gold); color:#12211f; font-weight:600;
+    padding:16px 30px; border-radius:var(--radius); border:none;
+    font-size:15.5px; cursor:pointer; text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease;
+    font-family:'Inter',sans-serif;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,162,39,0.25); }
+  .btn.ghost{
+    background:transparent; color:var(--ink); border:1px solid var(--line);
+  }
+  .btn.ghost:hover{ border-color:var(--gold); box-shadow:none; }
+
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,27,25,0.88); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; }
+  .brand{ font-family:'Fraunces',serif; font-weight:600; font-size:19px; }
+  .brand span{ color:var(--gold); }
+  nav .btn{ padding:10px 20px; font-size:14px; }
+
+  .hero{ padding:100px 0 80px; }
+  .hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center; }
+  .hero h1{ font-size:clamp(34px,4.6vw,54px); line-height:1.12; margin-bottom:22px; }
+  .hero h1 em{ font-style:normal; color:var(--gold); }
+  .hero p.lead{ font-size:18px; color:var(--ink-dim); max-width:520px; margin-bottom:34px; }
+  .hero-cta-row{ display:flex; gap:16px; flex-wrap:wrap; }
+
+  .bleed-card{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:36px; position:relative; overflow:hidden;
+  }
+  .ring-dot{
+    width:12px; height:12px; border-radius:50%; background:var(--coral);
+    position:absolute; top:34px; right:34px;
+    animation:pulse 1.6s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(194,84,60,0.55); }
+    70%{ box-shadow:0 0 0 14px rgba(194,84,60,0); }
+    100%{ box-shadow:0 0 0 0 rgba(194,84,60,0); }
+  }
+  .bleed-line{ display:flex; justify-content:space-between; align-items:baseline; padding:14px 0; border-bottom:1px solid var(--line); }
+  .bleed-line:last-child{ border-bottom:none; }
+  .bleed-line .label{ color:var(--ink-dim); font-size:14.5px; }
+  .bleed-line .val{ font-size:19px; }
+  .bleed-total{ margin-top:22px; padding-top:22px; border-top:1px solid var(--gold-dim); display:flex; justify-content:space-between; align-items:baseline; }
+  .bleed-total .val{ color:var(--coral); font-size:30px; font-weight:600; }
+
+  .calc-section{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .calc-grid{ display:grid; grid-template-columns:0.95fr 1.05fr; gap:56px; align-items:start; }
+  .calc-inputs label{ display:block; font-size:13.5px; color:var(--ink-dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em; }
+  .calc-field{ margin-bottom:26px; }
+  .calc-field input[type=range]{
+    width:100%; accent-color:var(--gold); height:4px;
+  }
+  .calc-field .num{ font-family:'IBM Plex Mono',monospace; font-size:22px; color:var(--gold); margin-top:6px; display:inline-block; }
+  .calc-result{
+    background:var(--bg-card); border:1px solid var(--gold-dim); border-radius:var(--radius);
+    padding:40px; text-align:left;
+  }
+  .calc-result .tiny{ font-size:13px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; }
+  .calc-result .big{ font-family:'IBM Plex Mono',monospace; font-size:clamp(38px,5vw,58px); color:var(--coral); line-height:1; margin-bottom:6px; }
+  .calc-result .sub{ color:var(--ink-dim); font-size:14.5px; margin-bottom:26px; }
+  .calc-result .divider{ height:1px; background:var(--line); margin:26px 0; }
+  .calc-result .compare .val{ font-family:'IBM Plex Mono',monospace; color:var(--teal); font-size:22px; }
+
+  .pain-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:50px; }
+  .pain-card{ border-top:2px solid var(--coral); padding-top:20px; }
+  .pain-card h3{ font-size:19px; margin-bottom:10px; }
+  .pain-card p{ color:var(--ink-dim); font-size:15px; }
+
+  .mech-grid{ display:grid; grid-template-columns:1fr 1fr; gap:34px; margin-top:50px; }
+  .mech-card{ background:var(--bg-card); border:1px solid var(--line); padding:34px; border-radius:var(--radius); }
+  .mech-num{ font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:13px; letter-spacing:0.1em; margin-bottom:16px; display:block; }
+  .mech-card h3{ font-size:22px; margin-bottom:14px; }
+  .mech-card p{ color:var(--ink-dim); font-size:15px; }
+  .mech-connector{ display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:13px; letter-spacing:0.1em; text-transform:uppercase; margin:26px 0; gap:14px; }
+  .mech-connector::before,.mech-connector::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  .proof-strip{ display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-top:50px; }
+  .proof-cell{ padding:32px; border-right:1px solid var(--line); }
+  .proof-cell:last-child{ border-right:none; }
+  .proof-cell .num{ font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:34px; display:block; margin-bottom:8px; }
+  .proof-cell .cap{ color:var(--ink-dim); font-size:14px; }
+  .guarantee-box{
+    margin-top:36px; background:var(--bg-card); border:1px dashed var(--gold-dim); border-radius:var(--radius);
+    padding:26px 30px; display:flex; gap:18px; align-items:flex-start;
+  }
+  .guarantee-box .g-mark{ font-family:'Fraunces',serif; font-size:26px; color:var(--gold); }
+  .guarantee-box p{ color:var(--ink-dim); font-size:15px; }
+  .guarantee-box strong{ color:var(--ink); }
+
+  .faq-item{ border-bottom:1px solid var(--line); }
+  .faq-q{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:24px 0; cursor:pointer; font-size:17px; font-weight:500;
+  }
+  .faq-q .mark{ color:var(--gold); font-family:'IBM Plex Mono',monospace; font-size:20px; transition:transform .2s; }
+  .faq-item.open .mark{ transform:rotate(45deg); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .25s ease; color:var(--ink-dim); font-size:15px; }
+  .faq-a-inner{ padding-bottom:24px; max-width:640px; }
+  .faq-item.open .faq-a{ max-height:220px; }
+
+  .timeline{ margin-top:50px; display:flex; flex-direction:column; gap:0; }
+  .tl-row{ display:grid; grid-template-columns:120px 1fr; gap:24px; padding:22px 0; border-bottom:1px solid var(--line); }
+  .tl-row:last-child{ border-bottom:none; }
+  .tl-day{ font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:14px; }
+  .tl-row h3{ font-size:16.5px; margin-bottom:6px; font-family:'Inter',sans-serif; font-weight:600; }
+  .tl-row p{ color:var(--ink-dim); font-size:14.5px; }
+
+  .apply-section{ background:var(--bg-alt); border-top:1px solid var(--line); }
+  .apply-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .apply-card{ background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius); padding:36px; }
+  .apply-card .q{ font-size:14.5px; color:var(--ink-dim); margin-bottom:10px; }
+  .apply-card select, .apply-card input{
+    width:100%; background:var(--bg); border:1px solid var(--line); color:var(--ink);
+    padding:14px 16px; border-radius:var(--radius); font-family:'Inter',sans-serif; font-size:15px; margin-bottom:20px;
+  }
+  .apply-card select:focus, .apply-card input:focus{ outline:2px solid var(--gold); border-color:var(--gold); }
+  .apply-card .btn{ width:100%; justify-content:center; }
+
+  footer{ padding:50px 0; border-top:1px solid var(--line); }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  footer p{ color:var(--ink-dim); font-size:13.5px; }
+
+  @media (max-width:860px){
+    .hero-grid, .calc-grid, .mech-grid, .apply-grid{ grid-template-columns:1fr; }
+    .pain-grid{ grid-template-columns:1fr; }
+    .proof-strip{ grid-template-columns:1fr; }
+    .proof-cell{ border-right:none; border-bottom:1px solid var(--line); }
+    .tl-row{ grid-template-columns:80px 1fr; }
+    section{ padding:70px 0; }
+    nav .btn{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Αόρατος <span>Γραμματέας</span></div>
+    <a href="#apply" class="btn">Δωρεάν Demo</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Για Ιδιωτικά Ιατρεία &amp; Κλινικές</span>
+      <h1>Σταμάτα την <em>Αόρατη Αιμορραγία</em> εσόδων στο τηλέφωνό σου.</h1>
+      <p class="lead">Κάθε αναπάντητη κλήση είναι ένας ασθενής που μόλις κάλεσε τον ανταγωνιστή σου. Το 24/7 Patient Concierge απαντάει, κλείνει ραντεβού και χτίζει τη φήμη σου στο Google — χωρίς να προσλάβεις κανέναν.</p>
+      <div class="hero-cta-row">
+        <a href="#calculator" class="btn">Υπολόγισε τα Χαμένα σου Έσοδα</a>
+        <a href="#mechanism" class="btn ghost">Πώς Λειτουργεί</a>
+      </div>
+    </div>
+    <div class="bleed-card">
+      <div class="ring-dot" aria-hidden="true"></div>
+      <div class="bleed-line"><span class="label">Αναπάντητη κλήση, 10:42πμ</span><span class="val mono">—</span></div>
+      <div class="bleed-line"><span class="label">Ασθενής καλεί το επόμενο ιατρείο</span><span class="val mono">—</span></div>
+      <div class="bleed-line"><span class="label">Μέση αξία νέου ασθενή</span><span class="val mono">€180</span></div>
+      <div class="bleed-total"><span class="label">Χαμένο έσοδο, σήμερα</span><span class="val">€180</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="calc-section" id="calculator">
+  <div class="wrap calc-grid">
+    <div>
+      <span class="eyebrow">Missed-Call Calculator</span>
+      <h2 style="font-size:30px; margin-bottom:16px;">Πόσα χάνεις κάθε μήνα;</h2>
+      <p style="color:var(--ink-dim); margin-bottom:34px;">Σύρε τα δύο slider όπως ταιριάζει στο ιατρείο σου.</p>
+
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label for="calls">Αναπάντητες κλήσεις / εβδομάδα</label>
+          <input type="range" id="calls" min="1" max="40" value="10">
+          <span class="num" id="callsVal">10</span>
+        </div>
+        <div class="calc-field">
+          <label for="value">Μέση αξία ασθενή (€)</label>
+          <input type="range" id="value" min="50" max="600" step="10" value="180">
+          <span class="num" id="valueVal">€180</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-result">
+      <div class="tiny">Εκτιμώμενη μηνιαία απώλεια</div>
+      <div class="big" id="lossOutput">€7,200</div>
+      <div class="sub">Με βάση 4.3 εβδομάδες/μήνα, αν μόνο το 1 στα 2 τηλεφωνήματα δεν απαντηθεί ποτέ.</div>
+      <div class="divider"></div>
+      <div class="compare">
+        <div class="tiny">Κόστος του Αόρατου Γραμματέα</div>
+        <div class="val">Κλάσμα αυτού — αποσβένεται από το 1ο κλεισμένο ραντεβού</div>
+      </div>
+      <a href="#apply" class="btn" style="margin-top:26px; width:100%; justify-content:center;">Δες πώς το Σταματάμε</a>
+    </div>
+  </div>
+</section>
+
+<section id="pain">
+  <div class="wrap">
+    <span class="eyebrow">Το Πρόβλημα</span>
+    <h2 style="font-size:32px; max-width:640px;">Δεν χάνεις ασθενείς επειδή δεν σε εμπιστεύονται. Τους χάνεις στο τελευταίο μίλι.</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <h3>Αναπάντητες Κλήσεις</h3>
+        <p>Η γραμματεία είναι απασχολημένη, ο ασθενής δεν ξαναπαίρνει — καλεί τον επόμενο γιατρό στη λίστα Google.</p>
+      </div>
+      <div class="pain-card">
+        <h3>Η Αδικία των Κριτικών</h3>
+        <p>Μόνο οι δυσαρεστημένοι αφήνουν κριτική. Ένα 1 αστέρι ζυγίζει όσο 20 ευχαριστημένους ασθενείς που δεν έγραψαν ποτέ.</p>
+      </div>
+      <div class="pain-card">
+        <h3>Εξουθενωμένη Γραμματεία</h3>
+        <p>Λειτουργεί σαν τηλεφωνικό κέντρο αντί να φροντίζει τον ασθενή που είναι ήδη στο ιατρείο.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mechanism" style="background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <span class="eyebrow">Ο Μηχανισμός</span>
+    <h2 style="font-size:32px; max-width:600px;">Ένα σύστημα, δύο γρανάζια που δουλεύουν μαζί.</h2>
+    <div class="mech-grid">
+      <div class="mech-card">
+        <span class="mech-num">ΓΡΑΝΑΖΙ 01</span>
+        <h3>Η Ασπίδα Φήμης</h3>
+        <p>Μετά το ραντεβού, ο ασθενής λαμβάνει SMS/QR. Αν είναι ευχαριστημένος, πάει με 1 κλικ στο Google για 5 αστέρια. Αν έχει παράπονο, το μήνυμα έρχεται ιδιωτικά σε εσένα — η δημόσια εικόνα σου προστατεύεται.</p>
+      </div>
+      <div class="mech-card">
+        <span class="mech-num">ΓΡΑΝΑΖΙ 02</span>
+        <h3>Ο Αόρατος Γραμματέας</h3>
+        <p>Εκπαιδευμένος αποκλειστικά στα δικά σου δεδομένα (τιμές, ωράριο, υπηρεσίες). Απαντάει σε κλήσεις &amp; μηνύματα 24/7 σε φυσικά ελληνικά. Αν η ερώτηση είναι ιατρική ή πολύπλοκη, τη μεταφέρει αμέσως στη γραμματεία σου.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <span class="eyebrow">Απόδειξη &amp; Εγγύηση</span>
+    <h2 style="font-size:32px; max-width:600px;">Δεν σου πουλάμε υπόσχεση. Σου δείχνουμε αριθμούς.</h2>
+    <div class="proof-strip">
+      <div class="proof-cell"><span class="num">242</span><span class="cap">Πεντάστερες κριτικές σε 30 ημέρες, πρόσφατος πελάτης</span></div>
+      <div class="proof-cell"><span class="num">78</span><span class="cap">Ραντεβού κλεισμένα αυτόματα, ίδιο διάστημα</span></div>
+      <div class="proof-cell"><span class="num">24/7</span><span class="cap">Κάλυψη, χωρίς επιπλέον προσωπικό</span></div>
+    </div>
+    <div class="guarantee-box">
+      <span class="g-mark">✓</span>
+      <p><strong>Εγγύηση 50+ πεντάστερων κριτικών σε 30 μέρες</strong> — αλλιώς δεν πληρώνεις. 100% αυθεντικές κριτικές, από πραγματικούς ασθενείς σου.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <span class="eyebrow">Πριν Ρωτήσεις</span>
+    <h2 style="font-size:32px; margin-bottom:10px;">Ό,τι σκέφτεσαι τώρα, το έχουμε ακούσει.</h2>
+
+    <div class="faq-item">
+      <div class="faq-q"><span>Είναι ρομπότ — οι ασθενείς μου δεν θα νευριάσουν;</span><span class="mark">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Μιλάει φυσικά ελληνικά και έχει άμεσο Human Handoff. Ο ασθενής νευριάζει όταν δεν του το σηκώνει κανείς, όχι όταν εξυπηρετείται αμέσως.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Θα δώσει λάθος ιατρική συμβουλή;</span><span class="mark">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Είναι αυστηρά κλειδωμένο σε διοικητικές ερωτήσεις (ωράριο, τιμές, διαθεσιμότητα). Δεν κάνει ποτέ διάγνωση.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Δεν έχω χρόνο να το στήσω.</span><span class="mark">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Είναι Done-For-You. Το στήνουμε εμείς σε 7 μέρες — εσύ βλέπεις απλά τα ραντεβού να μπαίνουν στο ημερολόγιο.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Γιατί μηνιαία συνδρομή;</span><span class="mark">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Κάθε μήνα σώζει 10-20 ραντεβού που θα χάνονταν. Το σύστημα βγάζει τα λεφτά του πολλαπλάσια.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Θα με τιμωρήσει η Google για τις κριτικές;</span><span class="mark">+</span></div>
+      <div class="faq-a"><div class="faq-a-inner">Όχι. Ζητάμε κριτικές αποκλειστικά από πραγματικούς ασθενείς σου — 100% αυθεντικές, καμία παραβίαση πολιτικής.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="setup">
+  <div class="wrap">
+    <span class="eyebrow">Το Onboarding</span>
+    <h2 style="font-size:32px; max-width:560px;">Από την πρώτη κλήση μαζί σου, μέχρι το πρώτο αυτόματο ραντεβού.</h2>
+    <div class="timeline">
+      <div class="tl-row"><div class="tl-day">Ημέρα 1</div><div><h3>Onboarding call</h3><p>Μαζεύουμε τιμές, ωράριο, υπηρεσίες και τις "κόκκινες λέξεις" για άμεσο Human Handoff.</p></div></div>
+      <div class="tl-row"><div class="tl-day">Ημέρες 2–5</div><div><h3>Εκπαίδευση &amp; σύνδεση</h3><p>Ο Αόρατος Γραμματέας εκπαιδεύεται στα δικά σου δεδομένα και συνδέεται με το ημερολόγιό σου.</p></div></div>
+      <div class="tl-row"><div class="tl-day">Ημέρα 6</div><div><h3>Δοκιμαστικές κλήσεις</h3><p>Ελέγχουμε μαζί σου σενάρια πραγματικών ασθενών πριν πάει live.</p></div></div>
+      <div class="tl-row"><div class="tl-day">Ημέρα 7</div><div><h3>Live</h3><p>Απαντάει σε κλήσεις &amp; μηνύματα 24/7. Λαμβάνεις μηνιαίο report με τα ραντεβού που σώθηκαν.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="apply-section" id="apply">
+  <div class="wrap apply-grid">
+    <div>
+      <span class="eyebrow">Επόμενο Βήμα</span>
+      <h2 style="font-size:32px; margin-bottom:18px;">Δες αν το ιατρείο σου πληροί τις προϋποθέσεις.</h2>
+      <p style="color:var(--ink-dim); max-width:440px;">Δεχόμαστε περιορισμένο αριθμό νέων ιατρείων τον μήνα ώστε κάθε εγκατάσταση να γίνεται σωστά. Συμπλήρωσε τα παρακάτω και κλείσε δωρεάν 15λεπτο demo.</p>
+    </div>
+    <form class="apply-card" onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Λάβαμε το αίτημά σου ✓';">
+      <div class="q">Ειδικότητα</div>
+      <select required>
+        <option value="">Επίλεξε...</option>
+        <option>Δερματολόγος</option>
+        <option>Πλαστικός Χειρουργός</option>
+        <option>Οδοντίατρος</option>
+        <option>Άλλο ιατρείο/κλινική</option>
+      </select>
+      <div class="q">Πόσες κλήσεις εκτιμάς ότι χάνεις την εβδομάδα;</div>
+      <select required>
+        <option value="">Επίλεξε...</option>
+        <option>1–5</option>
+        <option>6–15</option>
+        <option>16–30</option>
+        <option>30+</option>
+      </select>
+      <div class="q">Email ή τηλέφωνο επικοινωνίας</div>
+      <input type="text" required placeholder="π.χ. info@iatreio.gr">
+      <button type="submit" class="btn">Κλείσε το Δωρεάν 15λεπτο Demo</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">Αόρατος <span>Γραμματέας</span></div>
+    <p>24/7 Patient Concierge — Done-For-You σύστημα για ιδιωτικά ιατρεία &amp; κλινικές.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click', ()=>{
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  const callsSlider = document.getElementById('calls');
+  const valueSlider = document.getElementById('value');
+  const callsVal = document.getElementById('callsVal');
+  const valueVal = document.getElementById('valueVal');
+  const lossOutput = document.getElementById('lossOutput');
+
+  function formatEUR(n){
+    return '€' + Math.round(n).toLocaleString('el-GR');
+  }
+
+  function recalc(){
+    const calls = parseInt(callsSlider.value, 10);
+    const val = parseInt(valueSlider.value, 10);
+    callsVal.textContent = calls;
+    valueVal.textContent = formatEUR(val);
+    const monthlyLoss = calls * 0.5 * val * 4.3;
+    lossOutput.textContent = formatEUR(monthlyLoss);
+  }
+
+  callsSlider.addEventListener('input', recalc);
+  valueSlider.addEventListener('input', recalc);
+  recalc();
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.style.opacity=1; e.target.style.transform='translateY(0)'; }
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll('section > .wrap').forEach(el=>{
+    el.style.opacity=0;
+    el.style.transform='translateY(16px)';
+    el.style.transition='opacity .6s ease, transform .6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
