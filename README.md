@@ -16,7 +16,7 @@ vercel.json   → config για Vercel
 
 ### Formspree (φόρμα #apply) — ✅ ρυθμισμένο
 
-Η φόρμα κάνει POST στο `https://formspree.io/f/xojgvojy` (πεδία: `name`, `specialty`, `missed_calls`, `contact`). Αν αλλάξεις form, ενημέρωσε το `action` της `#applyForm` στο `index.html`.
+Η φόρμα κάνει POST στο `https://formspree.io/f/xojgvojy` (πεδία: `name`, `specialty`, `missed_calls`, `email`, `phone`). Αν αλλάξεις form, ενημέρωσε το `action` της `#applyForm` στο `index.html`.
 
 ### Calendly (βήμα 2 μετά το submit) — ✅ ρυθμισμένο
 

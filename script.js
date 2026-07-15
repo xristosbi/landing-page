@@ -154,10 +154,14 @@
     field.insertAdjacentElement('afterend', msg);
   }
 
-  function isValidContact(v){
-    var email = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    var phone = /^\+?\d{10,14}$/;
-    return email.test(v) || phone.test(v.replace(/[\s\-().]/g, ''));
+  function isValidEmail(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  }
+
+  /* Ελληνικό τηλέφωνο: 10 ψηφία, με προαιρετικό πρόθεμα +30 */
+  function isValidGreekPhone(v){
+    var digits = v.replace(/[\s\-().]/g, '');
+    return /^(\+30)?\d{10}$/.test(digits);
   }
 
   function validate(){
@@ -166,12 +170,16 @@
     var name = form.elements.name;
     var specialty = form.elements.specialty;
     var missed = form.elements.missed_calls;
-    var contact = form.elements.contact;
+    var email = form.elements.email;
+    var phone = form.elements.phone;
     if(!name.value.trim()){ fieldError(name, 'Συμπλήρωσε το όνομά σου και το όνομα του ιατρείου.'); ok = false; }
     if(!specialty.value){ fieldError(specialty, 'Επίλεξε ειδικότητα.'); ok = false; }
     if(!missed.value){ fieldError(missed, 'Επίλεξε μια εκτίμηση.'); ok = false; }
-    if(!contact.value.trim() || !isValidContact(contact.value.trim())){
-      fieldError(contact, 'Γράψε ένα έγκυρο email ή τηλέφωνο.'); ok = false;
+    if(!email.value.trim() || !isValidEmail(email.value.trim())){
+      fieldError(email, 'Γράψε ένα έγκυρο email.'); ok = false;
+    }
+    if(!phone.value.trim() || !isValidGreekPhone(phone.value.trim())){
+      fieldError(phone, 'Γράψε ένα έγκυρο ελληνικό τηλέφωνο (10 ψηφία, προαιρετικά με +30).'); ok = false;
     }
     return ok;
   }

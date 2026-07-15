@@ -322,10 +322,13 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .apply-success h3{ font-size:24px; margin-bottom:10px; }
 .apply-success > p{ color:var(--ink-dim); margin-bottom:20px; }
 .apply-success .check{ color:var(--gold); }
+/* Explicit height: το iframe του Calendly γεμίζει το parent (height:100%),
+   οπότε min-height/auto το αφήνει κομμένο. Χωρίς overflow:hidden. */
 .calendly-embed{
-  min-height:640px; background:var(--bg-card);
-  border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+  height:700px; width:100%; background:var(--bg-card);
+  border:1px solid var(--line); border-radius:var(--radius);
 }
+.calendly-embed iframe{ width:100%; height:100%; border:0; }
 
 /* ---------- Footer ---------- */
 footer{ padding:50px 0; border-top:1px solid var(--line); }
@@ -361,4 +364,7 @@ section.in-view .reveal{ opacity:1; transform:none; }
   .tl-row{ grid-template-columns:80px 1fr; }
   section{ padding:70px 0; }
   nav .btn{ display:none; }
+  /* Στο mobile το Calendly απλώνεται κάθετα — θέλει παραπάνω ύψος
+     για να διαλέγεις μέρα/ώρα χωρίς εσωτερικό scroll */
+  .calendly-embed{ height:980px; }
 }
