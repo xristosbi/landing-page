@@ -22,6 +22,10 @@ vercel.json   → config για Vercel
 
 Το inline widget δείχνει το `https://calendly.com/chris-bivl2/new-meeting` (ορίζεται ως `CALENDLY_URL` στην κορυφή του `script.js`) και εμφανίζεται αυτόματα μετά το επιτυχές submit, χρωματισμένο στο design system της σελίδας (σκούρο background, gold accent).
 
+### VSL video (section πάνω από το hero) — ⛔ TODO
+
+Το section `#vsl` δείχνει placeholder («VIDEO — ΕΡΧΕΤΑΙ ΣΥΝΤΟΜΑ»). Μόλις υπάρχει video, βάλε `<iframe src="..." loading="lazy" allowfullscreen>` μέσα στο `.vsl-frame` στο `index.html` (υπάρχει έτοιμο παράδειγμα σε σχόλιο εκεί) — το placeholder κρύβεται αυτόματα.
+
 ### Domain στα meta tags — ⛔ TODO
 
 Στο `index.html` (στο `<head>`), αντικατέστησε το placeholder `https://example.com/` με το τελικό domain στα: `canonical`, `og:url`, `og:image`, `twitter:image` — μόλις αποφασιστεί το hosting.
