@@ -4,7 +4,7 @@
   /* ============================================================
      CONFIG — άλλαξε αυτά τα δύο πριν το deploy (δες README.md)
      ============================================================ */
-  var CALENDLY_URL = 'https://calendly.com/YOUR_ACCOUNT/15min'; // <-- βάλε το δικό σου Calendly link
+  var CALENDLY_URL = 'https://calendly.com/chris-bivl2/new-meeting';
   // Το Formspree endpoint ορίζεται στο action της φόρμας μέσα στο index.html.
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -163,9 +163,11 @@
   function validate(){
     clearErrors();
     var ok = true;
+    var name = form.elements.name;
     var specialty = form.elements.specialty;
     var missed = form.elements.missed_calls;
     var contact = form.elements.contact;
+    if(!name.value.trim()){ fieldError(name, 'Συμπλήρωσε το όνομά σου και το όνομα του ιατρείου.'); ok = false; }
     if(!specialty.value){ fieldError(specialty, 'Επίλεξε ειδικότητα.'); ok = false; }
     if(!missed.value){ fieldError(missed, 'Επίλεξε μια εκτίμηση.'); ok = false; }
     if(!contact.value.trim() || !isValidContact(contact.value.trim())){

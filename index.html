@@ -200,10 +200,11 @@
       <p style="color:var(--ink-dim); max-width:440px;">Δεχόμαστε περιορισμένο αριθμό νέων ιατρείων τον μήνα ώστε κάθε εγκατάσταση να γίνεται σωστά. Συμπλήρωσε τα παρακάτω και κλείσε δωρεάν 15λεπτο demo.</p>
     </div>
     <div class="apply-flow">
-      <!-- Άλλαξε το YOUR_FORM_ID με το δικό σου Formspree form ID (δες README.md) -->
-      <form class="apply-card" id="applyForm" method="POST" action="https://formspree.io/f/YOUR_FORM_ID" novalidate>
+      <form class="apply-card" id="applyForm" method="POST" action="https://formspree.io/f/xojgvojy" novalidate>
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" aria-hidden="true">
         <input type="hidden" name="_subject" value="Νέο αίτημα demo — Αόρατος Γραμματέας">
+        <div class="q" id="q-name">Όνομα σου &amp; όνομα ιατρείου</div>
+        <input type="text" name="name" required placeholder="π.χ. Δρ. Παπαδοπούλου — Derma Clinic" aria-labelledby="q-name" autocomplete="name">
         <div class="q" id="q-specialty">Ειδικότητα</div>
         <select name="specialty" required aria-labelledby="q-specialty">
           <option value="">Επίλεξε...</option>

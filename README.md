@@ -12,30 +12,19 @@ netlify.toml  → config για Netlify
 vercel.json   → config για Vercel
 ```
 
-## Πριν το deploy — 3 ρυθμίσεις
+## Ρυθμίσεις integrations
 
-### 1. Formspree (φόρμα #apply)
+### Formspree (φόρμα #apply) — ✅ ρυθμισμένο
 
-1. Φτιάξε λογαριασμό στο [formspree.io](https://formspree.io) και δημιούργησε νέο form.
-2. Αντέγραψε το form ID (μοιάζει με `xabc1234`).
-3. Στο `index.html`, στη φόρμα `#applyForm`, αντικατέστησε το `YOUR_FORM_ID`:
-   ```html
-   <form ... action="https://formspree.io/f/xabc1234" ...>
-   ```
+Η φόρμα κάνει POST στο `https://formspree.io/f/xojgvojy` (πεδία: `name`, `specialty`, `missed_calls`, `contact`). Αν αλλάξεις form, ενημέρωσε το `action` της `#applyForm` στο `index.html`.
 
-### 2. Calendly (βήμα 2 μετά το submit)
+### Calendly (βήμα 2 μετά το submit) — ✅ ρυθμισμένο
 
-Στο `script.js`, στην κορυφή του αρχείου, βάλε το δικό σου Calendly event link:
+Το inline widget δείχνει το `https://calendly.com/chris-bivl2/new-meeting` (ορίζεται ως `CALENDLY_URL` στην κορυφή του `script.js`) και εμφανίζεται αυτόματα μετά το επιτυχές submit, χρωματισμένο στο design system της σελίδας (σκούρο background, gold accent).
 
-```js
-var CALENDLY_URL = 'https://calendly.com/to-diko-sou/15min';
-```
+### Domain στα meta tags — ⛔ TODO
 
-Το inline widget εμφανίζεται αυτόματα μετά το επιτυχές submit της φόρμας, ήδη χρωματισμένο στο design system της σελίδας (σκούρο background, gold accent).
-
-### 3. Domain στα meta tags
-
-Στο `index.html` (στο `<head>`), αντικατέστησε το `https://example.com/` με το τελικό domain στα: `canonical`, `og:url`, `og:image`, `twitter:image`.
+Στο `index.html` (στο `<head>`), αντικατέστησε το placeholder `https://example.com/` με το τελικό domain στα: `canonical`, `og:url`, `og:image`, `twitter:image` — μόλις αποφασιστεί το hosting.
 
 Το `og-image.png` (1200×630) είναι placeholder — μπορείς να το αντικαταστήσεις με δικό σου visual όποτε θες, κρατώντας το ίδιο όνομα αρχείου.
 
