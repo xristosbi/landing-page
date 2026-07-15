@@ -4,7 +4,7 @@
   /* ============================================================
      CONFIG — άλλαξε αυτά τα δύο πριν το deploy (δες README.md)
      ============================================================ */
-  var CALENDLY_URL = 'https://calendly.com/chris-bivl2/new-meeting';
+  var CALENDLY_URL = 'https://calendly.com/xristosbithizis/30min';
   // Το Formspree endpoint ορίζεται στο action της φόρμας μέσα στο index.html.
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

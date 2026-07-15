@@ -20,7 +20,7 @@ vercel.json   → config για Vercel
 
 ### Calendly (βήμα 2 μετά το submit) — ✅ ρυθμισμένο
 
-Το inline widget δείχνει το `https://calendly.com/chris-bivl2/new-meeting` (ορίζεται ως `CALENDLY_URL` στην κορυφή του `script.js`) και εμφανίζεται αυτόματα μετά το επιτυχές submit, χρωματισμένο στο design system της σελίδας (σκούρο background, gold accent).
+Το inline widget δείχνει το `https://calendly.com/xristosbithizis/30min` (ορίζεται ως `CALENDLY_URL` στην κορυφή του `script.js`) και εμφανίζεται αυτόματα μετά το επιτυχές submit, χρωματισμένο στο design system της σελίδας (σκούρο background, gold accent).
 
 ### VSL video (section πάνω από το hero) — ⛔ TODO
 
