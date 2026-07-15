@@ -117,13 +117,12 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .hero p.lead{ font-size:18px; color:var(--ink-dim); max-width:520px; margin-bottom:34px; }
 .hero-cta-row{ display:flex; gap:16px; flex-wrap:wrap; }
 
-/* Orchestrated hero entrance: eyebrow → h1 → lead → CTAs → bleed-card */
+/* Orchestrated hero entrance: h1 → lead → CTAs → bleed-card */
 @keyframes rise{
   from{ opacity:0; transform:translateY(16px); }
   to{ opacity:1; transform:none; }
 }
-.hero .eyebrow{ animation:rise .6s var(--ease-out) both; }
-.hero h1{ animation:rise .7s var(--ease-out) .07s both; }
+.hero h1{ animation:rise .7s var(--ease-out) both; }
 .hero p.lead{ animation:rise .7s var(--ease-out) .16s both; }
 .hero .hero-cta-row{ animation:rise .7s var(--ease-out) .26s both; }
 .hero .bleed-card{ animation:rise .8s var(--ease-out) .38s both; }
