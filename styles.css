@@ -111,18 +111,19 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 /* Blood-drop accents γύρω από το "Αόρατη Αιμορραγία" — αγκυρωμένα στο τέλος
    της λέξης (zero-width inline anchor) ώστε να ακολουθούν το line wrapping */
 .drops{ position:relative; display:inline-block; width:0; height:0; overflow:visible; vertical-align:baseline; }
-.drops .drop{ position:absolute; fill:var(--coral); opacity:.5; }
-.drop-a{ width:8px; top:-1.02em; left:-3.9em; animation:dropFade 6s ease-in-out infinite; }
-.drop-b{ width:6px; top:-1.14em; left:-1.7em; animation:dropFade 7s ease-in-out 2.2s infinite; }
-.drop-c{ width:7px; top:-0.95em; left:-0.3em; animation:dropFade 6.5s ease-in-out 1.1s infinite; }
-.drop-d{ width:8px; top:0.06em; left:-0.12em; animation:dropDrip 7s ease-in 3s infinite; }
+.drops .drop{ position:absolute; fill:var(--coral); opacity:.78; }
+/* Κάτω από τη λέξη "Αιμορραγία", στο descender space — στάζουν από τα γράμματα */
+.drop-a{ width:10px; top:0.13em; left:-3.45em; animation:dropFade 6s ease-in-out infinite; }
+.drop-b{ width:8px; top:0.2em; left:-2.15em; animation:dropFade 7s ease-in-out 2.2s infinite; }
+.drop-c{ width:9px; top:0.11em; left:-0.95em; animation:dropFade 6.5s ease-in-out 1.1s infinite; }
+.drop-d{ width:10px; top:0.05em; left:-0.08em; animation:dropDrip 7s ease-in 3s infinite; }
 @keyframes dropFade{
-  0%,100%{ opacity:.3; transform:none; }
-  50%{ opacity:.7; transform:translateY(2px); }
+  0%,100%{ opacity:.55; transform:none; }
+  50%{ opacity:.9; transform:translateY(2px); }
 }
 @keyframes dropDrip{
   0%,58%{ opacity:0; transform:translateY(-5px) scale(.7); }
-  68%{ opacity:.75; transform:translateY(0) scale(1); }
+  68%{ opacity:.9; transform:translateY(0) scale(1); }
   100%{ opacity:0; transform:translateY(13px) scale(.95); }
 }
 .hero-cta-row{ display:flex; gap:16px; flex-wrap:wrap; }
@@ -372,4 +373,9 @@ section.in-view .reveal{ opacity:1; transform:none; }
   .tl-row{ grid-template-columns:80px 1fr; }
   section{ padding:70px 0; }
   nav .btn{ display:none; }
+  /* Μικρότερες σταγόνες στο μικρότερο h1, να μην ακουμπάνε την επόμενη γραμμή */
+  .drop-a{ width:7px; top:0.1em; }
+  .drop-b{ width:6px; top:0.15em; }
+  .drop-c{ width:6px; top:0.08em; }
+  .drop-d{ width:7px; top:0.03em; }
 }
