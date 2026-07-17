@@ -61,6 +61,10 @@ nav{
 nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; }
 .brand{ font-family:'Fraunces',serif; font-weight:600; font-size:19px; }
 .brand span{ color:var(--gold); }
+.brand-logo{
+  height:38px; width:auto; max-width:120px; object-fit:contain;
+  display:inline-block; vertical-align:middle; margin-right:12px;
+}
 nav .btn{ padding:10px 20px; font-size:14px; }
 
 /* ---------- VSL video ---------- */
