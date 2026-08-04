@@ -22,9 +22,9 @@ vercel.json   → config για Vercel
 
 Το inline widget δείχνει το `https://calendly.com/xristosbithizis/30min` (ορίζεται ως `CALENDLY_URL` στην κορυφή του `script.js`) και εμφανίζεται αυτόματα μετά το επιτυχές submit, χρωματισμένο στο design system της σελίδας (σκούρο background, gold accent).
 
-### VSL video (section πάνω από το hero) — ⛔ TODO
+### VSL video (section πάνω από το hero) — ✅ ρυθμισμένο
 
-Το section `#vsl` δείχνει placeholder («VIDEO — ΕΡΧΕΤΑΙ ΣΥΝΤΟΜΑ»). Μόλις υπάρχει video, βάλε `<iframe src="..." loading="lazy" allowfullscreen>` μέσα στο `.vsl-frame` στο `index.html` (υπάρχει έτοιμο παράδειγμα σε σχόλιο εκεί) — το placeholder κρύβεται αυτόματα.
+Το section `#vsl` κάνει embed το YouTube video `iX2CMTHUDOs` (lazy-loaded iframe μέσα στο `.vsl-frame`). Για αλλαγή video, άλλαξε το `src` του iframe στο `index.html`.
 
 ### Domain στα meta tags — ⛔ TODO
 
