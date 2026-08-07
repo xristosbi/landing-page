@@ -71,36 +71,102 @@
 </section>
 
 <section class="calc-section" id="calculator">
-  <div class="wrap calc-grid">
-    <div>
-      <span class="eyebrow">Missed-Call Calculator</span>
-      <h2 style="font-size:30px; margin-bottom:16px;">Πόσα χάνεις κάθε μήνα;</h2>
-      <p style="color:var(--ink-dim); margin-bottom:34px;">Σύρε τα δύο slider όπως ταιριάζει στο ιατρείο σου.</p>
+  <div class="wrap">
+    <span class="eyebrow">Missed-Call Calculator</span>
+    <h2 style="font-size:30px; margin-bottom:16px;">Πόσα χάνεις κάθε μήνα;</h2>
+    <p style="color:var(--ink-dim); margin-bottom:34px;">Σύρε τα δύο slider όπως ταιριάζει στο ιατρείο σου.</p>
 
-      <div class="calc-inputs">
-        <div class="calc-field">
-          <label for="calls">Αναπάντητες κλήσεις / εβδομάδα</label>
-          <input type="range" id="calls" min="1" max="40" value="10">
-          <span class="num" id="callsVal">10</span>
+    <div class="calc-tabs" role="tablist" aria-label="Στάδια υπολογισμού">
+      <button type="button" class="calc-tab active" id="tab-now" role="tab" aria-selected="true" aria-controls="panel-now" data-panel="panel-now">📍 1. Παρούσα Φάση</button>
+      <button type="button" class="calc-tab" id="tab-ideal" role="tab" aria-selected="false" aria-controls="panel-ideal" data-panel="panel-ideal">🎯 2. Ιδανική Φάση</button>
+      <button type="button" class="calc-tab" id="tab-compare" role="tab" aria-selected="false" aria-controls="panel-compare" data-panel="panel-compare">📊 3. Σύγκριση</button>
+    </div>
+
+    <div class="calc-panel active" id="panel-now" role="tabpanel" aria-labelledby="tab-now">
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="calc-field field-card">
+            <div class="field-head">
+              <label for="calls">Αναπάντητες κλήσεις / εβδομάδα</label>
+              <span class="value-badge" id="callsVal">10 κλήσεις</span>
+            </div>
+            <input type="range" id="calls" min="1" max="40" value="10">
+          </div>
+          <div class="calc-field field-card">
+            <div class="field-head">
+              <label for="value">Μέση αξία ασθενή (€)</label>
+              <span class="value-badge" id="valueVal">€180</span>
+            </div>
+            <input type="range" id="value" min="50" max="600" step="10" value="180">
+          </div>
         </div>
-        <div class="calc-field">
-          <label for="value">Μέση αξία ασθενή (€)</label>
-          <input type="range" id="value" min="50" max="600" step="10" value="180">
-          <span class="num" id="valueVal">€180</span>
+
+        <div class="calc-result">
+          <div class="tiny">Εκτιμώμενη μηνιαία απώλεια</div>
+          <div class="big" id="lossOutput">€7,200</div>
+          <div class="sub">Με βάση 4.3 εβδομάδες/μήνα, αν μόνο το 1 στα 2 τηλεφωνήματα δεν απαντηθεί ποτέ.</div>
+          <div class="divider"></div>
+          <div class="compare">
+            <div class="tiny">Κόστος του Αόρατου Γραμματέα</div>
+            <div class="val">Κλάσμα αυτού — αποσβένεται από το 1ο κλεισμένο ραντεβού</div>
+          </div>
+          <a href="#apply" class="btn" style="margin-top:26px; width:100%; justify-content:center;">Δες πώς το Σταματάμε</a>
         </div>
       </div>
     </div>
 
-    <div class="calc-result">
-      <div class="tiny">Εκτιμώμενη μηνιαία απώλεια</div>
-      <div class="big" id="lossOutput">€7,200</div>
-      <div class="sub">Με βάση 4.3 εβδομάδες/μήνα, αν μόνο το 1 στα 2 τηλεφωνήματα δεν απαντηθεί ποτέ.</div>
-      <div class="divider"></div>
-      <div class="compare">
-        <div class="tiny">Κόστος του Αόρατου Γραμματέα</div>
-        <div class="val">Κλάσμα αυτού — αποσβένεται από το 1ο κλεισμένο ραντεβού</div>
+    <div class="calc-panel" id="panel-ideal" role="tabpanel" aria-labelledby="tab-ideal">
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="calc-field field-card">
+            <div class="field-head">
+              <label>Αναπάντητες κλήσεις / εβδομάδα</label>
+              <span class="value-badge teal">0 κλήσεις</span>
+            </div>
+            <p class="field-note">Με Αόρατο Γραμματέα, κάθε κλήση απαντιέται — ακόμα κι όταν η γραμμή είναι απασχολημένη.</p>
+          </div>
+          <div class="calc-field field-card">
+            <div class="field-head">
+              <label>Κάλυψη</label>
+              <span class="value-badge teal">24/7</span>
+            </div>
+            <p class="field-note">Χωρίς δεύτερη γραμματέα, χωρίς επιπλέον προσωπικό.</p>
+          </div>
+        </div>
+
+        <div class="calc-result ideal-result">
+          <div class="tiny">Ανακτημένα έσοδα / μήνα</div>
+          <div class="big" id="recoverOutput">€3.870</div>
+          <div class="sub">Τα έσοδα που σήμερα χάνονται, με βάση τις δικές σου τιμές στα slider.</div>
+          <div class="divider"></div>
+          <div class="compare">
+            <div class="tiny">Χαμένες κλήσεις</div>
+            <div class="val">Μηδέν — κάθε κλήση απαντιέται</div>
+          </div>
+          <a href="#apply" class="btn" style="margin-top:26px; width:100%; justify-content:center;">Κλείσε το Δωρεάν 15λεπτο Demo</a>
+        </div>
       </div>
-      <a href="#apply" class="btn" style="margin-top:26px; width:100%; justify-content:center;">Δες πώς το Σταματάμε</a>
+    </div>
+
+    <div class="calc-panel" id="panel-compare" role="tabpanel" aria-labelledby="tab-compare">
+      <div class="compare-cols">
+        <div class="compare-col loss">
+          <div class="tiny">Χωρίς Αόρατο Γραμματέα</div>
+          <div class="cmp-num" id="cmpLoss">−€3.870 / μήνα</div>
+          <p class="field-note">Χαμένα έσοδα κάθε μήνα, με τις τρέχουσες ρυθμίσεις των slider.</p>
+        </div>
+        <div class="compare-col gain">
+          <div class="tiny">Με Αόρατο Γραμματέα</div>
+          <div class="cmp-num" id="cmpGain">+€3.870 / μήνα</div>
+          <p class="field-note">Έσοδα που επιστρέφουν — μηδέν αναπάντητες κλήσεις.</p>
+        </div>
+      </div>
+      <div class="calc-result annual-result">
+        <div class="tiny">Το κόστος της αδράνειας σε 12 μήνες</div>
+        <div class="big" id="annualOutput">€46.440</div>
+        <div class="sub">Κάθε μήνας που περνάει χωρίς σύστημα, το ποσό μεγαλώνει.</div>
+        <a href="#apply" class="btn" style="margin-top:26px; width:100%; justify-content:center;">Κλείσε το Δωρεάν 15λεπτο Demo</a>
+      </div>
     </div>
   </div>
 </section>

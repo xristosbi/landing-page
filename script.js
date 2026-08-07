@@ -24,6 +24,10 @@
   var callsVal = document.getElementById('callsVal');
   var valueVal = document.getElementById('valueVal');
   var lossOutput = document.getElementById('lossOutput');
+  var recoverOutput = document.getElementById('recoverOutput');
+  var annualOutput = document.getElementById('annualOutput');
+  var cmpLoss = document.getElementById('cmpLoss');
+  var cmpGain = document.getElementById('cmpGain');
 
   function formatEUR(n){
     return '€' + Math.round(n).toLocaleString('el-GR');
@@ -36,44 +40,44 @@
     slider.style.setProperty('--fill', pct + '%');
   }
 
-  /* Odometer count-up: rAF + ease-out cubic, ~400ms */
-  var displayedLoss = null;
-  var lossRaf = null;
-  function renderLoss(target){
-    if(displayedLoss === null || reducedMotion){
-      displayedLoss = target;
-      lossOutput.textContent = formatEUR(target);
+  /* Odometer count-up: rAF + ease-out cubic, ~400ms — ένα state ανά στοιχείο */
+  function renderAnimated(el, target, format){
+    if(el._displayed === undefined || reducedMotion){
+      el._displayed = target;
+      el.textContent = format(target);
       return;
     }
-    if(lossRaf) cancelAnimationFrame(lossRaf);
-    var from = displayedLoss;
+    if(el._raf) cancelAnimationFrame(el._raf);
+    var from = el._displayed;
     var start = performance.now();
     var DUR = 400;
     function frame(now){
       var p = Math.min((now - start) / DUR, 1);
       var eased = 1 - Math.pow(1 - p, 3);
-      var current = from + (target - from) * eased;
-      lossOutput.textContent = formatEUR(current);
+      el.textContent = format(from + (target - from) * eased);
       if(p < 1){
-        lossRaf = requestAnimationFrame(frame);
+        el._raf = requestAnimationFrame(frame);
       } else {
-        displayedLoss = target;
-        lossRaf = null;
+        el._raf = null;
       }
     }
-    displayedLoss = target;
-    lossRaf = requestAnimationFrame(frame);
+    el._displayed = target;
+    el._raf = requestAnimationFrame(frame);
   }
 
   function recalc(){
     var calls = parseInt(callsSlider.value, 10);
     var val = parseInt(valueSlider.value, 10);
-    callsVal.textContent = calls;
+    callsVal.textContent = calls + (calls === 1 ? ' κλήση' : ' κλήσεις');
     valueVal.textContent = formatEUR(val);
     updateFill(callsSlider);
     updateFill(valueSlider);
     var monthlyLoss = calls * 0.5 * val * 4.3;
-    renderLoss(monthlyLoss);
+    renderAnimated(lossOutput, monthlyLoss, formatEUR);
+    renderAnimated(recoverOutput, monthlyLoss, formatEUR);
+    renderAnimated(annualOutput, monthlyLoss * 12, formatEUR);
+    cmpLoss.textContent = '−' + formatEUR(monthlyLoss) + ' / μήνα';
+    cmpGain.textContent = '+' + formatEUR(monthlyLoss) + ' / μήνα';
   }
 
   [callsSlider, valueSlider].forEach(function(slider){
@@ -85,6 +89,21 @@
     });
   });
   recalc();
+
+  /* Calculator tabs */
+  var calcTabs = document.querySelectorAll('.calc-tab');
+  calcTabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      calcTabs.forEach(function(t){
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.calc-panel').forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      document.getElementById(tab.dataset.panel).classList.add('active');
+    });
+  });
 
   /* ---------- Staggered scroll reveals ---------- */
   (function setupReveals(){

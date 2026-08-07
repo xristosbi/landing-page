@@ -144,8 +144,70 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 /* ---------- Calculator ---------- */
 .calc-section{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
 .calc-grid{ display:grid; grid-template-columns:0.95fr 1.05fr; gap:56px; align-items:start; }
-.calc-inputs label{ display:block; font-size:13.5px; color:var(--ink-dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.06em; }
+.calc-inputs label{ display:block; font-size:13.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.06em; }
 .calc-field{ margin-bottom:26px; }
+.calc-field:last-child{ margin-bottom:0; }
+
+/* Tab pills */
+.calc-tabs{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:34px; }
+.calc-tab{
+  font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.02em;
+  padding:10px 22px; border-radius:999px; cursor:pointer;
+  background:transparent; color:var(--ink-dim); border:1px solid var(--line);
+  transition:background .2s ease, color .2s ease, border-color .2s ease;
+}
+.calc-tab:hover{ border-color:var(--gold); color:var(--ink); }
+.calc-tab.active{ background:var(--gold); color:#12211f; border-color:var(--gold); }
+.calc-tab:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+/* Tab panels: ~250ms fade, instant under reduced motion */
+.calc-panel{ display:none; }
+.calc-panel.active{ display:block; }
+@media (prefers-reduced-motion: no-preference){
+  .calc-panel.active{ animation:panelFade .25s ease both; }
+}
+@keyframes panelFade{
+  from{ opacity:0; transform:translateY(6px); }
+  to{ opacity:1; transform:none; }
+}
+
+/* Field cards + value badges */
+.field-card{
+  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px 30px;
+}
+.field-head{ display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:18px; }
+.field-head label{ margin:0; }
+.value-badge{
+  font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; white-space:nowrap;
+  color:var(--gold); background:rgba(201,162,39,0.07); border:1px solid rgba(201,162,39,0.5);
+  padding:6px 14px; border-radius:var(--radius);
+}
+.value-badge.teal{
+  color:var(--teal); background:rgba(74,150,131,0.08); border-color:rgba(74,150,131,0.5);
+}
+.field-note{ color:var(--ink-dim); font-size:14.5px; margin:0; }
+.field-head + .field-note{ margin-top:-6px; }
+
+/* Ideal / annual result variants (raised specificity so it always
+   wins over the base .calc-result .big coral rule, regardless of
+   source order) */
+.ideal-result{ border-color:rgba(74,150,131,0.6); }
+.calc-result.ideal-result .big{ color:var(--teal); }
+.annual-result{ max-width:640px; margin:26px auto 0; text-align:center; }
+
+/* Comparison columns */
+.compare-cols{ display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+.compare-col{
+  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px 30px;
+}
+.compare-col .tiny{ font-size:13px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; }
+.compare-col.loss{ border-top:3px solid var(--coral); }
+.compare-col.gain{ border-top:3px solid var(--teal); }
+.cmp-num{ font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; margin-bottom:10px; font-variant-numeric:tabular-nums; }
+.compare-col.loss .cmp-num{ color:var(--coral); }
+.compare-col.gain .cmp-num{ color:var(--teal); }
 
 /* Custom slider: gradient track fill (via --fill) + gold thumb with drag glow */
 .calc-field input[type=range]{
@@ -205,7 +267,6 @@ nav .btn{ padding:10px 20px; font-size:14px; }
   box-shadow:0 0 0 6px rgba(201,162,39,0.25), 0 2px 6px rgba(0,0,0,0.45);
 }
 
-.calc-field .num{ font-family:'IBM Plex Mono',monospace; font-size:22px; color:var(--gold); margin-top:6px; display:inline-block; }
 .calc-result{
   background:var(--bg-card); border:1px solid var(--gold-dim); border-radius:var(--radius);
   padding:40px; text-align:left;
@@ -347,4 +408,10 @@ section.in-view .reveal{ opacity:1; transform:none; }
   /* Στο mobile το Calendly απλώνεται κάθετα — θέλει παραπάνω ύψος
      για να διαλέγεις μέρα/ώρα χωρίς εσωτερικό scroll */
   .calendly-embed{ height:980px; }
+  /* Calculator: stacked cards, tabs σε μία σειρά χωρίς οριζόντιο scroll */
+  .calc-tabs{ gap:8px; }
+  .calc-tab{ padding:8px 13px; font-size:12.5px; }
+  .field-card, .compare-col{ padding:22px 20px; }
+  .compare-cols{ grid-template-columns:1fr; }
+  .field-head{ flex-wrap:wrap; gap:10px; }
 }
