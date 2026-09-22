@@ -88,54 +88,62 @@
       <div class="calc-panel active" id="panel-now" role="tabpanel" aria-labelledby="tab-now">
         <div class="calc-cols">
           <div class="calc-col">
-            <span class="calc-col-title">Τρέχων Τζίρος &amp; ROAS</span>
-            <div class="calc-field" data-tab="now" data-field="yearlyRevenue" tabindex="0">
+            <span class="calc-col-title">Κλήσεις &amp; Έσοδα</span>
+            <div class="calc-field" data-tab="now" data-field="weeklyCalls" tabindex="0">
               <div class="field-head">
-                <label>Συνολικός Ετήσιος Τζίρος (€)</label>
-                <span class="value-badge" data-badge="now.yearlyRevenue">€10.000</span>
+                <label>Συνολικές Κλήσεις/Εβδομάδα</label>
+                <span class="value-badge" data-badge="now.weeklyCalls">50</span>
               </div>
-              <input type="range" data-slider="now.yearlyRevenue" min="10000" max="10000000" step="10000" value="10000">
+              <input type="range" data-slider="now.weeklyCalls" min="5" max="300" step="5" value="50">
             </div>
-            <div class="calc-field" data-tab="now" data-field="roas" tabindex="0">
+            <div class="calc-field" data-tab="now" data-field="missedPct" tabindex="0">
               <div class="field-head">
-                <label>Τρέχον ROAS Διαφημίσεων</label>
-                <span class="value-badge" data-badge="now.roas">4,5x</span>
+                <label>% Αναπάντητων Κλήσεων</label>
+                <span class="value-badge" data-badge="now.missedPct">25%</span>
               </div>
-              <input type="range" data-slider="now.roas" min="0" max="20" step="0.1" value="4.5">
+              <input type="range" data-slider="now.missedPct" min="0" max="60" step="1" value="25">
+            </div>
+            <div class="calc-field" data-tab="now" data-field="avgValue" tabindex="0">
+              <div class="field-head">
+                <label>Μέση Αξία Ασθενή (€)</label>
+                <span class="value-badge" data-badge="now.avgValue">€100</span>
+              </div>
+              <input type="range" data-slider="now.avgValue" min="20" max="1000" step="10" value="100">
+            </div>
+            <p class="field-note" id="missedCallsReadout">≈ 13 χαμένες κλήσεις/εβδομάδα</p>
+          </div>
+          <div class="calc-col">
+            <span class="calc-col-title">Κόστος Γραμματείας</span>
+            <div class="calc-field" data-tab="now" data-field="secretarySalary" tabindex="0">
+              <div class="field-head">
+                <label>Μηνιαίος Μισθός Γραμματέα (€)</label>
+                <span class="value-badge" data-badge="now.secretarySalary">€900</span>
+              </div>
+              <input type="range" data-slider="now.secretarySalary" min="0" max="3000" step="50" value="900">
+            </div>
+            <div class="calc-field" data-tab="now" data-field="hoursOnPhone" tabindex="0">
+              <div class="field-head">
+                <label>Ώρες/Εβδομάδα στο Τηλέφωνο</label>
+                <span class="value-badge" data-badge="now.hoursOnPhone">20 ώρες</span>
+              </div>
+              <input type="range" data-slider="now.hoursOnPhone" min="0" max="60" step="1" value="20">
             </div>
           </div>
           <div class="calc-col">
-            <span class="calc-col-title">Επένδυση Marketing</span>
-            <div class="calc-field" data-tab="now" data-field="adSpend" tabindex="0">
+            <span class="calc-col-title">Κόστος Χρόνου Γιατρού (DIY)</span>
+            <div class="calc-field" data-tab="now" data-field="doctorHourly" tabindex="0">
               <div class="field-head">
-                <label>Μηνιαίο Ad Spend (Budget)</label>
-                <span class="value-badge" data-badge="now.adSpend">€0</span>
+                <label>Αξία της Ώρας σου (€/ώρα)</label>
+                <span class="value-badge" data-badge="now.doctorHourly">€80/ώρα</span>
               </div>
-              <input type="range" data-slider="now.adSpend" min="0" max="20000" step="50" value="0">
+              <input type="range" data-slider="now.doctorHourly" min="20" max="500" step="5" value="80">
             </div>
-            <div class="calc-field" data-tab="now" data-field="agencyFee" tabindex="0">
+            <div class="calc-field" data-tab="now" data-field="doctorHoursMonth" tabindex="0">
               <div class="field-head">
-                <label>Μηνιαία Αμοιβή Agency/Freelancer</label>
-                <span class="value-badge" data-badge="now.agencyFee">€0</span>
+                <label>Ώρες/Μήνα σε Διοικητικά/Τηλέφωνα</label>
+                <span class="value-badge" data-badge="now.doctorHoursMonth">10 ώρες</span>
               </div>
-              <input type="range" data-slider="now.agencyFee" min="0" max="10000" step="50" value="0">
-            </div>
-          </div>
-          <div class="calc-col">
-            <span class="calc-col-title">Κόστος Χρόνου (DIY)</span>
-            <div class="calc-field" data-tab="now" data-field="hourlyValue" tabindex="0">
-              <div class="field-head">
-                <label>Αξία της ώρας σου (€/ώρα)</label>
-                <span class="value-badge" data-badge="now.hourlyValue">€10/ώρα</span>
-              </div>
-              <input type="range" data-slider="now.hourlyValue" min="10" max="1000" step="5" value="10">
-            </div>
-            <div class="calc-field" data-tab="now" data-field="hoursPerMonth" tabindex="0">
-              <div class="field-head">
-                <label>Ώρες/μήνα που τρώει το Marketing</label>
-                <span class="value-badge" data-badge="now.hoursPerMonth">0 ώρες</span>
-              </div>
-              <input type="range" data-slider="now.hoursPerMonth" min="0" max="160" step="1" value="0">
+              <input type="range" data-slider="now.doctorHoursMonth" min="0" max="80" step="1" value="10">
             </div>
           </div>
         </div>
@@ -143,7 +151,7 @@
         <div class="calc-bottom">
           <div class="keypad" data-keypad="now">
             <div class="keypad-title">Επεξεργασία Πεδίου</div>
-            <div class="keypad-field-name" data-keypad-label="now">Συνολικός Ετήσιος Τζίρος (€)</div>
+            <div class="keypad-field-name" data-keypad-label="now">Συνολικές Κλήσεις/Εβδομάδα</div>
             <div class="keypad-grid">
               <button type="button" class="keypad-key" data-key="1">1</button>
               <button type="button" class="keypad-key" data-key="2">2</button>
@@ -167,31 +175,30 @@
             </div>
             <div class="stats-row" data-stats="now">
               <div class="stat-card" tabindex="0">
-                <span class="stat-label">Ad ROAS</span>
-                <span class="stat-value" data-stat="now.adRoas">4,5x</span>
-                <span class="stat-status zone-high" data-stat="now.roasStatus">Ζώνη Υψηλής Κερδοφορίας 🔥</span>
+                <span class="stat-label">Χαμένες Κλήσεις/Μήνα</span>
+                <span class="stat-value" data-stat="now.missedCallsPerMonth">55</span>
               </div>
               <div class="stat-card" tabindex="0">
-                <span class="stat-label">Μηνιαίος Τζίρος από Διαφημίσεις</span>
-                <span class="stat-value" data-stat="now.monthlyAdRevenue">€833</span>
+                <span class="stat-label">Χαμένα Έσοδα/Μήνα</span>
+                <span class="stat-value" style="color:var(--coral)" data-stat="now.lostRevenueMonthly">€5.375</span>
               </div>
               <div class="stat-card" tabindex="0">
-                <span class="stat-label">Μηνιαίο Κόστος Χρόνου</span>
-                <span class="stat-value" data-stat="now.monthlyTimeCost">€0</span>
+                <span class="stat-label">Κόστος Γραμματείας ανά Κλήση</span>
+                <span class="stat-value" data-stat="now.secretaryCostPerCall">€4</span>
               </div>
               <div class="stat-card" tabindex="0">
-                <span class="stat-label">Πραγματική Συνδυασμένη ROAS</span>
-                <span class="stat-value" data-stat="now.combinedRoas">0,0x</span>
+                <span class="stat-label">Κόστος Χρόνου Γιατρού/Μήνα</span>
+                <span class="stat-value" data-stat="now.doctorTimeCostMonthly">€800</span>
               </div>
             </div>
             <div class="summary-rows">
               <div class="summary-row">
-                <span class="summary-label">Συνολική Μηνιαία Επένδυση (Ads+Agency+Χρόνος)</span>
-                <span class="summary-value coral" data-summary="now.totalInvestment">€0</span>
+                <span class="summary-label">Συνολικό Μηνιαίο Κόστος (Χαμένα Έσοδα + Γραμματεία + Χρόνος Γιατρού)</span>
+                <span class="summary-value coral" data-summary="now.totalMonthlyCost">€7.075</span>
               </div>
               <div class="summary-row">
-                <span class="summary-label">Καθαρό Μηνιαίο Κέρδος από Ads/Marketing</span>
-                <span class="summary-value teal" data-summary="now.netProfit">€833</span>
+                <span class="summary-label">Ετήσιο Χαμένο Έσοδο</span>
+                <span class="summary-value coral" data-summary="now.annualLostRevenue">€84.900</span>
               </div>
             </div>
           </div>
@@ -202,100 +209,74 @@
       <div class="calc-panel" id="panel-ideal" role="tabpanel" aria-labelledby="tab-ideal">
         <div class="scenario-row">
           <span class="scenario-label">Σενάριο:</span>
-          <button type="button" class="scenario-btn" data-scenario="A">Σενάριο Α</button>
-          <button type="button" class="scenario-btn" data-scenario="B">Σενάριο Β</button>
-          <button type="button" class="scenario-btn" data-scenario="breakeven">Break-Even</button>
+          <button type="button" class="scenario-btn" data-scenario="conservative">Συντηρητικό</button>
+          <button type="button" class="scenario-btn" data-scenario="realistic">Ρεαλιστικό</button>
+          <button type="button" class="scenario-btn active" data-scenario="ambitious">Φιλόδοξο</button>
         </div>
 
         <div class="calc-cols">
           <div class="calc-col">
-            <span class="calc-col-title">Στόχοι Ανάπτυξης</span>
-            <div class="calc-field" data-tab="ideal" data-field="targetAOV" tabindex="0">
+            <span class="calc-col-title">Στόχοι με Voice Agent</span>
+            <div class="calc-field" data-tab="ideal" data-field="reductionPct" tabindex="0">
               <div class="field-head">
-                <label>Στόχος AOV (Μέση Αξία)</label>
-                <span class="value-badge teal" data-badge="ideal.targetAOV">€10</span>
+                <label>% Λιγότερων Χαμένων Κλήσεων</label>
+                <span class="value-badge teal" data-badge="ideal.reductionPct">100%</span>
               </div>
-              <input type="range" data-slider="ideal.targetAOV" min="10" max="5000" step="10" value="10">
+              <input type="range" data-slider="ideal.reductionPct" min="0" max="100" step="1" value="100">
             </div>
-            <div class="calc-field" data-tab="ideal" data-field="targetCustomers" tabindex="0">
+            <div class="calc-field" data-tab="ideal" data-field="ltvVisits" tabindex="0">
               <div class="field-head">
-                <label>Στόχος Παραπάνω Πελατών</label>
-                <span class="value-badge teal" data-badge="ideal.targetCustomers">0</span>
+                <label>LTV — Επισκέψεις/Έτος ανά Ασθενή</label>
+                <span class="value-badge teal" data-badge="ideal.ltvVisits">2 φορές</span>
               </div>
-              <input type="range" data-slider="ideal.targetCustomers" min="0" max="10000" step="1" value="0">
-            </div>
-            <div class="calc-field" data-tab="ideal" data-field="ltv" tabindex="0">
-              <div class="field-head">
-                <label>LTV (Επαναλαμβανόμενες Αγορές)</label>
-                <span class="value-badge teal" data-badge="ideal.ltv">1x</span>
-              </div>
-              <input type="range" data-slider="ideal.ltv" min="1" max="50" step="1" value="1">
-            </div>
-            <div class="calc-field" data-tab="ideal" data-field="profitMargin" tabindex="0">
-              <div class="field-head">
-                <label>Ποσοστό Κέρδους (%)</label>
-                <span class="value-badge teal" data-badge="ideal.profitMargin">0%</span>
-              </div>
-              <input type="range" data-slider="ideal.profitMargin" min="0" max="100" step="1" value="0">
+              <input type="range" data-slider="ideal.ltvVisits" min="1" max="10" step="1" value="2">
             </div>
             <div class="preview-box">
-              <span class="preview-label">Συνολική Αξία LTV / Πελάτη</span>
-              <span class="preview-value" data-preview="ideal.ltvPerCustomer">€10</span>
+              <span class="preview-label">Συνολική Ετήσια Αξία / Νέο Ασθενή</span>
+              <span class="preview-value" data-preview="ideal.ltvPerCustomer">€200</span>
             </div>
           </div>
 
           <div class="calc-col">
-            <span class="calc-col-title">Επένδυση Marketing</span>
-            <div class="mini-presets">
-              <button type="button" class="mini-preset-btn" data-mini-preset="A">Πακέτο Α</button>
-              <button type="button" class="mini-preset-btn" data-mini-preset="B">Πακέτο Β</button>
-            </div>
-            <div class="calc-field" data-tab="ideal" data-field="adSpend" tabindex="0">
+            <span class="calc-col-title">Επένδυση στο Voice Agent</span>
+            <div class="calc-field" data-tab="ideal" data-field="monthlyRetainer" tabindex="0">
               <div class="field-head">
-                <label>Μηνιαίο Ad Spend (Budget)</label>
-                <span class="value-badge teal" data-badge="ideal.adSpend">€0</span>
+                <label>Μηνιαίο Retainer (€)</label>
+                <span class="value-badge teal" data-badge="ideal.monthlyRetainer">€300</span>
               </div>
-              <input type="range" data-slider="ideal.adSpend" min="0" max="20000" step="50" value="0">
-            </div>
-            <div class="calc-field" data-tab="ideal" data-field="agencyFee" tabindex="0">
-              <div class="field-head">
-                <label>Μηνιαία Αμοιβή Agency/Freelancer</label>
-                <span class="value-badge teal" data-badge="ideal.agencyFee">€0</span>
-              </div>
-              <input type="range" data-slider="ideal.agencyFee" min="0" max="10000" step="50" value="0">
+              <input type="range" data-slider="ideal.monthlyRetainer" min="100" max="1500" step="50" value="300">
             </div>
             <div class="calc-field" data-tab="ideal" data-field="setupFee" tabindex="0">
               <div class="field-head">
-                <label>Εφάπαξ Χρέωση Εγκατάστασης (Setup Fee)</label>
-                <span class="value-badge teal" data-badge="ideal.setupFee">€0</span>
+                <label>Εφάπαξ Setup Fee (€)</label>
+                <span class="value-badge teal" data-badge="ideal.setupFee">€2.000</span>
               </div>
-              <input type="range" data-slider="ideal.setupFee" min="0" max="10000" step="100" value="0">
+              <input type="range" data-slider="ideal.setupFee" min="500" max="3000" step="100" value="2000">
             </div>
           </div>
 
           <div class="calc-col">
-            <span class="calc-col-title">Κόστος Χρόνου (DIY)</span>
-            <div class="calc-field" data-tab="ideal" data-field="hourlyValue" tabindex="0">
+            <span class="calc-col-title">Κόστος Χρόνου Γιατρού (DIY)</span>
+            <div class="calc-field">
               <div class="field-head">
-                <label>Αξία της ώρας σου (€/ώρα)</label>
-                <span class="value-badge teal" data-badge="ideal.hourlyValue">€10/ώρα</span>
+                <label>Αξία της Ώρας σου (€/ώρα)</label>
+                <span class="value-badge teal" data-readonly="ideal.doctorHourly">€80/ώρα</span>
               </div>
-              <input type="range" data-slider="ideal.hourlyValue" min="10" max="1000" step="5" value="10">
             </div>
-            <div class="calc-field" data-tab="ideal" data-field="hoursPerMonth" tabindex="0">
+            <div class="calc-field">
               <div class="field-head">
-                <label>Ώρες/μήνα που τρώει το Marketing</label>
-                <span class="value-badge teal" data-badge="ideal.hoursPerMonth">0 ώρες</span>
+                <label>Ώρες/Μήνα σε Διοικητικά/Τηλέφωνα</label>
+                <span class="value-badge teal" data-readonly="ideal.doctorHoursMonth">10 ώρες</span>
               </div>
-              <input type="range" data-slider="ideal.hoursPerMonth" min="0" max="160" step="1" value="0">
             </div>
+            <p class="field-note">Σχεδόν μηδενισμένο με Voice Agent</p>
           </div>
         </div>
 
         <div class="calc-bottom">
           <div class="keypad" data-keypad="ideal">
             <div class="keypad-title">Επεξεργασία Πεδίου</div>
-            <div class="keypad-field-name" data-keypad-label="ideal">Στόχος AOV (Μέση Αξία)</div>
+            <div class="keypad-field-name" data-keypad-label="ideal">% Λιγότερων Χαμένων Κλήσεων</div>
             <div class="keypad-grid">
               <button type="button" class="keypad-key" data-key="1">1</button>
               <button type="button" class="keypad-key" data-key="2">2</button>
@@ -319,30 +300,30 @@
             </div>
             <div class="stats-row" data-stats="ideal">
               <div class="stat-card teal" tabindex="0">
-                <span class="stat-label">Ad ROAS (με LTV)</span>
-                <span class="stat-value" data-stat="ideal.adRoasLtv">0,0x</span>
+                <span class="stat-label">Ανακτημένες Κλήσεις/Μήνα</span>
+                <span class="stat-value" data-stat="ideal.recoveredCallsPerMonth">55</span>
               </div>
               <div class="stat-card teal" tabindex="0">
-                <span class="stat-label">Μηνιαίος Τζίρος (με LTV)</span>
-                <span class="stat-value" data-stat="ideal.monthlyRevenueLtv">€0</span>
+                <span class="stat-label">Ανακτημένα Έσοδα/Μήνα</span>
+                <span class="stat-value" data-stat="ideal.recoveredRevenueMonthly">€5.375</span>
               </div>
               <div class="stat-card teal" tabindex="0">
-                <span class="stat-label">Μηνιαίο Κόστος Χρόνου</span>
-                <span class="stat-value" data-stat="ideal.monthlyTimeCost">€0</span>
+                <span class="stat-label">Καθαρό Όφελος/Μήνα</span>
+                <span class="stat-value" data-stat="ideal.netBenefitMonthly">€5.075</span>
               </div>
               <div class="stat-card teal" tabindex="0">
-                <span class="stat-label">Πραγματική Συνδυασμένη ROAS</span>
-                <span class="stat-value" data-stat="ideal.combinedRoas">0,0x</span>
+                <span class="stat-label">ROI</span>
+                <span class="stat-value" data-stat="ideal.roi">10,4x</span>
               </div>
             </div>
             <div class="summary-rows">
               <div class="summary-row">
-                <span class="summary-label" data-summary-label="breakEvenCustomers">Πελάτες για Break-Even (με LTV 1x)</span>
-                <span class="summary-value" data-summary="ideal.breakEvenCustomers">0</span>
+                <span class="summary-label">Απόσβεση Setup Fee σε</span>
+                <span class="summary-value" data-summary="ideal.paybackMonths">0,4 μήνες</span>
               </div>
               <div class="summary-row">
-                <span class="summary-label">Συνολική Αξία LTV Νέων Πελατών</span>
-                <span class="summary-value teal" data-summary="ideal.totalLtvValue">€0</span>
+                <span class="summary-label">Συνολική Ετήσια Αξία LTV Ασθενών</span>
+                <span class="summary-value teal" data-summary="ideal.annualLtvValue">€132.000</span>
               </div>
             </div>
           </div>
@@ -358,48 +339,42 @@
 
         <div class="compare-top-row">
           <div class="compare-box present">
-            <span class="tiny">Παρούσα Φάση (Τωρινός Ετήσιος Τζίρος)</span>
-            <span class="compare-box-value" data-compare="presentYearly">€10.000</span>
-            <span class="compare-box-sub" data-compare="presentMonthly">/μήνα: €833</span>
+            <span class="tiny">Παρούσα Φάση (Ετήσιο Χαμένο Έσοδο)</span>
+            <span class="compare-box-value" style="color:var(--coral)" data-compare="presentAnnual">€84.900</span>
           </div>
           <div class="compare-box ideal">
-            <span class="tiny">Ιδανική Φάση (Στόχος Έτους)</span>
-            <span class="compare-box-value" data-compare="idealYearly">€10.000</span>
-            <span class="compare-box-sub" data-compare="idealMonthly">/μήνα: €833</span>
+            <span class="tiny">Με Voice Agent (Ετήσιο Καθαρό Όφελος)</span>
+            <span class="compare-box-value" data-compare="idealAnnual">€60.900</span>
           </div>
           <div class="compare-box gap">
-            <span class="tiny">Ετήσια Διαφεύγοντα Κέρδη (Gap) ⚠️</span>
+            <span class="tiny">Συνολική Ετήσια Διαφορά 🎯</span>
             <span class="compare-box-value" id="gapOutput">€0</span>
           </div>
         </div>
 
         <div class="stats-row cmp">
           <div class="stat-card">
-            <span class="stat-label">ROAS</span>
-            <span class="stat-arrow" data-arrow="roas">4,5x ➔ 0,0x</span>
+            <span class="stat-label">Χαμένες Κλήσεις/Μήνα</span>
+            <span class="stat-arrow" data-arrow="missedCalls">55 ➔ 0</span>
           </div>
           <div class="stat-card">
-            <span class="stat-label">Τζίρος/μήνα</span>
-            <span class="stat-arrow" data-arrow="monthlyRevenue">€833 ➔ €0</span>
+            <span class="stat-label">Έσοδα/Μήνα</span>
+            <span class="stat-arrow" data-arrow="revenue">€5.375 ➔ €5.375</span>
           </div>
           <div class="stat-card">
-            <span class="stat-label">Μηνιαία Επένδυση</span>
-            <span class="stat-arrow" data-arrow="monthlyInvestment">€0 ➔ €0</span>
+            <span class="stat-label">Μηνιαίο Κόστος</span>
+            <span class="stat-arrow" data-arrow="cost">€7.075 ➔ €300</span>
           </div>
           <div class="stat-card">
-            <span class="stat-label">Καθαρό Κέρδος/μήνα</span>
-            <span class="stat-arrow" data-arrow="netProfit">€833 ➔ €0</span>
+            <span class="stat-label">Καθαρό Αποτέλεσμα/Μήνα</span>
+            <span class="stat-arrow" data-arrow="netResult">−€7.075 ➔ €5.075</span>
           </div>
         </div>
 
         <div class="summary-rows">
           <div class="summary-row">
-            <span class="summary-label">Επιπλέον Καθαρό Μηνιαίο Κέρδος (Net Gap)</span>
-            <span class="summary-value teal" data-summary="netGapMonthly">€0</span>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">Συνολικό Ετήσιο Διαφεύγον Κέρδος</span>
-            <span class="summary-value coral" data-summary="netGapYearly">€0</span>
+            <span class="summary-label">Απόσβεση σε</span>
+            <span class="summary-value teal" data-summary="paybackMonths">0,4 μήνες</span>
           </div>
         </div>
       </div>

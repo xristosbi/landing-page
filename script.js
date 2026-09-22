@@ -39,49 +39,41 @@
     if(!toolRoot) return;
 
     var fieldDefs = {
-      'now.yearlyRevenue':   { min:10000, max:10000000, step:10000, format:'eur' },
-      'now.roas':            { min:0,     max:20,       step:0.1,   format:'x1' },
-      'now.adSpend':         { min:0,     max:20000,    step:50,    format:'eur' },
-      'now.agencyFee':       { min:0,     max:10000,    step:50,    format:'eur' },
-      'now.hourlyValue':     { min:10,    max:1000,     step:5,     format:'eurHour' },
-      'now.hoursPerMonth':   { min:0,     max:160,      step:1,     format:'hours' },
+      'now.weeklyCalls':       { min:5,   max:300,  step:5,   format:'int' },
+      'now.missedPct':         { min:0,   max:60,   step:1,   format:'pct' },
+      'now.avgValue':          { min:20,  max:1000, step:10,  format:'eur' },
+      'now.secretarySalary':   { min:0,   max:3000, step:50,  format:'eur' },
+      'now.hoursOnPhone':      { min:0,   max:60,   step:1,   format:'hours' },
+      'now.doctorHourly':      { min:20,  max:500,  step:5,   format:'eurHour' },
+      'now.doctorHoursMonth':  { min:0,   max:80,   step:1,   format:'hours' },
 
-      'ideal.targetAOV':       { min:10, max:5000,  step:10,  format:'eur' },
-      'ideal.targetCustomers': { min:0,  max:10000, step:1,   format:'int' },
-      'ideal.ltv':              { min:1,  max:50,    step:1,   format:'x0' },
-      'ideal.profitMargin':    { min:0,  max:100,   step:1,   format:'pct' },
-      'ideal.adSpend':          { min:0,  max:20000, step:50,  format:'eur' },
-      'ideal.agencyFee':        { min:0,  max:10000, step:50,  format:'eur' },
-      'ideal.setupFee':         { min:0,  max:10000, step:100, format:'eur' },
-      'ideal.hourlyValue':      { min:10, max:1000,  step:5,   format:'eurHour' },
-      'ideal.hoursPerMonth':    { min:0,  max:160,   step:1,   format:'hours' }
+      'ideal.reductionPct':    { min:0,   max:100,  step:1,   format:'pct' },
+      'ideal.ltvVisits':       { min:1,   max:10,   step:1,   format:'times' },
+      'ideal.monthlyRetainer': { min:100, max:1500, step:50,  format:'eur' },
+      'ideal.setupFee':        { min:500, max:3000, step:100, format:'eur' }
     };
 
     var fieldLabels = {
-      'now.yearlyRevenue': 'Συνολικός Ετήσιος Τζίρος (€)',
-      'now.roas': 'Τρέχον ROAS Διαφημίσεων',
-      'now.adSpend': 'Μηνιαίο Ad Spend (Budget)',
-      'now.agencyFee': 'Μηνιαία Αμοιβή Agency/Freelancer',
-      'now.hourlyValue': 'Αξία της ώρας σου (€/ώρα)',
-      'now.hoursPerMonth': 'Ώρες/μήνα που τρώει το Marketing',
-      'ideal.targetAOV': 'Στόχος AOV (Μέση Αξία)',
-      'ideal.targetCustomers': 'Στόχος Παραπάνω Πελατών',
-      'ideal.ltv': 'LTV (Επαναλαμβανόμενες Αγορές)',
-      'ideal.profitMargin': 'Ποσοστό Κέρδους (%)',
-      'ideal.adSpend': 'Μηνιαίο Ad Spend (Budget)',
-      'ideal.agencyFee': 'Μηνιαία Αμοιβή Agency/Freelancer',
-      'ideal.setupFee': 'Εφάπαξ Χρέωση Εγκατάστασης (Setup Fee)',
-      'ideal.hourlyValue': 'Αξία της ώρας σου (€/ώρα)',
-      'ideal.hoursPerMonth': 'Ώρες/μήνα που τρώει το Marketing'
+      'now.weeklyCalls': 'Συνολικές Κλήσεις/Εβδομάδα',
+      'now.missedPct': '% Αναπάντητων Κλήσεων',
+      'now.avgValue': 'Μέση Αξία Ασθενή (€)',
+      'now.secretarySalary': 'Μηνιαίος Μισθός Γραμματέα (€)',
+      'now.hoursOnPhone': 'Ώρες/Εβδομάδα στο Τηλέφωνο',
+      'now.doctorHourly': 'Αξία της Ώρας σου (€/ώρα)',
+      'now.doctorHoursMonth': 'Ώρες/Μήνα σε Διοικητικά/Τηλέφωνα',
+      'ideal.reductionPct': '% Λιγότερων Χαμένων Κλήσεων',
+      'ideal.ltvVisits': 'LTV — Επισκέψεις/Έτος ανά Ασθενή',
+      'ideal.monthlyRetainer': 'Μηνιαίο Retainer (€)',
+      'ideal.setupFee': 'Εφάπαξ Setup Fee (€)'
     };
 
     var state = {
-      now:   { yearlyRevenue:10000, roas:4.5, adSpend:0, agencyFee:0, hourlyValue:10, hoursPerMonth:0 },
-      ideal: { targetAOV:10, targetCustomers:0, ltv:1, profitMargin:0, adSpend:0, agencyFee:0, setupFee:0, hourlyValue:10, hoursPerMonth:0 }
+      now:   { weeklyCalls:50, missedPct:25, avgValue:100, secretarySalary:900, hoursOnPhone:20, doctorHourly:80, doctorHoursMonth:10 },
+      ideal: { reductionPct:100, ltvVisits:2, monthlyRetainer:300, setupFee:2000 }
     };
-    var activeField = { now:'yearlyRevenue', ideal:'targetAOV' };
+    var activeField = { now:'weeklyCalls', ideal:'reductionPct' };
     var freshEntry = { now:true, ideal:true };
-    var activeScenario = null;
+    var activeScenario = 'ambitious';
 
     /* ---- formatting (Greek style: "." thousands, "," decimals; negatives as "−€X") ---- */
     function fmtEUR(n){
@@ -89,12 +81,16 @@
       return sign + '€' + Math.round(Math.abs(n)).toLocaleString('el-GR');
     }
     function fmtX1(n){ return n.toLocaleString('el-GR', { minimumFractionDigits:1, maximumFractionDigits:1 }) + 'x'; }
-    function fmtX0(n){ return Math.round(n).toLocaleString('el-GR') + 'x'; }
     function fmtInt(n){ return Math.round(n).toLocaleString('el-GR'); }
     function fmtPct(n){ return Math.round(n) + '%'; }
     function fmtHours(n){ var r = Math.round(n); return r.toLocaleString('el-GR') + (r === 1 ? ' ώρα' : ' ώρες'); }
     function fmtEurHour(n){ return fmtEUR(n) + '/ώρα'; }
-    var formatters = { eur:fmtEUR, x1:fmtX1, x0:fmtX0, int:fmtInt, pct:fmtPct, hours:fmtHours, eurHour:fmtEurHour };
+    function fmtTimes(n){ var r = Math.round(n); return r + (r === 1 ? ' φορά' : ' φορές'); }
+    function fmtMonths(n){
+      if(n === null || !isFinite(n) || n < 0) return '—';
+      return n.toFixed(1).replace('.', ',') + ' μήνες';
+    }
+    var formatters = { eur:fmtEUR, x1:fmtX1, int:fmtInt, pct:fmtPct, hours:fmtHours, eurHour:fmtEurHour, times:fmtTimes };
     function formatValue(key, val){ return formatters[fieldDefs[key].format](val); }
 
     /* Odometer count-up: rAF + ease-out cubic, ~400ms — ένα state ανά στοιχείο */
@@ -173,77 +169,72 @@
     /* ---- derived values ---- */
     function calcNow(){
       var s = state.now;
-      var monthlyAdRevenue = s.adSpend > 0 ? s.adSpend * s.roas : s.yearlyRevenue / 12;
-      var monthlyTimeCost = s.hourlyValue * s.hoursPerMonth;
-      var totalInvestment = s.adSpend + s.agencyFee + monthlyTimeCost;
-      var netProfit = monthlyAdRevenue - totalInvestment;
-      var combinedRoas = totalInvestment > 0 ? monthlyAdRevenue / totalInvestment : 0;
-      var zone = s.roas < 1 ? 'low' : (s.roas <= 3 ? 'mid' : 'high');
-      return { roas:s.roas, zone:zone, monthlyAdRevenue:monthlyAdRevenue, monthlyTimeCost:monthlyTimeCost, totalInvestment:totalInvestment, netProfit:netProfit, combinedRoas:combinedRoas };
+      var missedCallsPerWeek = s.weeklyCalls * s.missedPct / 100;
+      var missedCallsPerMonth = missedCallsPerWeek * 4.3;
+      var lostRevenueMonthly = missedCallsPerMonth * s.avgValue;
+      var secretaryCostPerCall = s.secretarySalary / (s.weeklyCalls * 4.3);
+      var doctorTimeCostMonthly = s.doctorHourly * s.doctorHoursMonth;
+      var totalMonthlyCost = lostRevenueMonthly + s.secretarySalary + doctorTimeCostMonthly;
+      var annualLostRevenue = totalMonthlyCost * 12;
+      return { missedCallsPerWeek:missedCallsPerWeek, missedCallsPerMonth:missedCallsPerMonth, lostRevenueMonthly:lostRevenueMonthly, secretaryCostPerCall:secretaryCostPerCall, doctorTimeCostMonthly:doctorTimeCostMonthly, totalMonthlyCost:totalMonthlyCost, annualLostRevenue:annualLostRevenue };
     }
 
-    function calcIdeal(){
+    function calcIdeal(cNow){
       var s = state.ideal;
-      var ltvPerCustomer = s.targetAOV * s.ltv;
-      var monthlyRevenueLtv = s.targetAOV * s.targetCustomers * s.ltv;
-      var monthlyTimeCost = s.hourlyValue * s.hoursPerMonth;
-      var marketingInvestment = s.adSpend + s.agencyFee;
-      var totalInvestment = marketingInvestment + monthlyTimeCost;
-      var adRoasLtv = marketingInvestment > 0 ? monthlyRevenueLtv / marketingInvestment : 0;
-      var combinedRoas = totalInvestment > 0 ? monthlyRevenueLtv / totalInvestment : 0;
-      var netProfit = monthlyRevenueLtv - totalInvestment;
-      var breakEvenCustomers = ltvPerCustomer > 0 ? Math.ceil(totalInvestment / ltvPerCustomer) : 0;
-      return { ltvPerCustomer:ltvPerCustomer, monthlyRevenueLtv:monthlyRevenueLtv, monthlyTimeCost:monthlyTimeCost, totalInvestment:totalInvestment, adRoasLtv:adRoasLtv, combinedRoas:combinedRoas, netProfit:netProfit, breakEvenCustomers:breakEvenCustomers, totalLtvValue:monthlyRevenueLtv, ltv:s.ltv };
+      var recoveredCallsPerMonth = cNow.missedCallsPerMonth * s.reductionPct / 100;
+      var recoveredRevenueMonthly = recoveredCallsPerMonth * state.now.avgValue;
+      var netBenefitMonthly = recoveredRevenueMonthly - s.monthlyRetainer;
+      var roi = (netBenefitMonthly * 12) / (s.setupFee + s.monthlyRetainer * 12);
+      var ltvPerCustomer = state.now.avgValue * s.ltvVisits;
+      var annualLtvValue = ltvPerCustomer * recoveredCallsPerMonth * 12;
+      var paybackMonths = netBenefitMonthly > 0 ? s.setupFee / netBenefitMonthly : null;
+      return { recoveredCallsPerMonth:recoveredCallsPerMonth, recoveredRevenueMonthly:recoveredRevenueMonthly, netBenefitMonthly:netBenefitMonthly, roi:roi, ltvPerCustomer:ltvPerCustomer, annualLtvValue:annualLtvValue, paybackMonths:paybackMonths };
     }
 
     function renderNow(c){
-      setText('[data-stat="now.adRoas"]', fmtX1(c.roas));
-      var statusText = c.zone === 'low' ? 'Ζώνη Χαμηλής Απόδοσης' : (c.zone === 'high' ? 'Ζώνη Υψηλής Κερδοφορίας 🔥' : 'Ζώνη Νεκρού Σημείου');
-      var statusEl = document.querySelector('[data-stat="now.roasStatus"]');
-      if(statusEl){ statusEl.textContent = statusText; statusEl.className = 'stat-status zone-' + c.zone; }
-      setText('[data-stat="now.monthlyAdRevenue"]', fmtEUR(c.monthlyAdRevenue));
-      setText('[data-stat="now.monthlyTimeCost"]', fmtEUR(c.monthlyTimeCost));
-      setText('[data-stat="now.combinedRoas"]', fmtX1(c.combinedRoas));
-      setText('[data-summary="now.totalInvestment"]', fmtEUR(c.totalInvestment));
-      var netEl = document.querySelector('[data-summary="now.netProfit"]');
-      if(netEl){ netEl.textContent = fmtEUR(c.netProfit); netEl.className = 'summary-value ' + (c.netProfit >= 0 ? 'teal' : 'coral'); }
+      setText('#missedCallsReadout', '≈ ' + fmtInt(c.missedCallsPerWeek) + ' χαμένες κλήσεις/εβδομάδα');
+      setText('[data-stat="now.missedCallsPerMonth"]', fmtInt(c.missedCallsPerMonth));
+      setText('[data-stat="now.lostRevenueMonthly"]', fmtEUR(c.lostRevenueMonthly));
+      setText('[data-stat="now.secretaryCostPerCall"]', fmtEUR(c.secretaryCostPerCall));
+      setText('[data-stat="now.doctorTimeCostMonthly"]', fmtEUR(c.doctorTimeCostMonthly));
+      setText('[data-summary="now.totalMonthlyCost"]', fmtEUR(c.totalMonthlyCost));
+      setText('[data-summary="now.annualLostRevenue"]', fmtEUR(c.annualLostRevenue));
     }
 
     function renderIdeal(c){
       setText('[data-preview="ideal.ltvPerCustomer"]', fmtEUR(c.ltvPerCustomer));
-      setText('[data-stat="ideal.adRoasLtv"]', fmtX1(c.adRoasLtv));
-      setText('[data-stat="ideal.monthlyRevenueLtv"]', fmtEUR(c.monthlyRevenueLtv));
-      setText('[data-stat="ideal.monthlyTimeCost"]', fmtEUR(c.monthlyTimeCost));
-      setText('[data-stat="ideal.combinedRoas"]', fmtX1(c.combinedRoas));
-      setText('[data-summary="ideal.breakEvenCustomers"]', fmtInt(c.breakEvenCustomers));
-      setText('[data-summary-label="breakEvenCustomers"]', 'Πελάτες για Break-Even (με LTV ' + fmtX0(c.ltv) + ')');
-      setText('[data-summary="ideal.totalLtvValue"]', fmtEUR(c.totalLtvValue));
+      setText('[data-stat="ideal.recoveredCallsPerMonth"]', fmtInt(c.recoveredCallsPerMonth));
+      setText('[data-stat="ideal.recoveredRevenueMonthly"]', fmtEUR(c.recoveredRevenueMonthly));
+      setText('[data-stat="ideal.netBenefitMonthly"]', fmtEUR(c.netBenefitMonthly));
+      setText('[data-stat="ideal.roi"]', fmtX1(c.roi));
+      setText('[data-summary="ideal.paybackMonths"]', fmtMonths(c.paybackMonths));
+      setText('[data-summary="ideal.annualLtvValue"]', fmtEUR(c.annualLtvValue));
+      /* readonly reflection of Tab1's doctor time-cost fields */
+      setText('[data-readonly="ideal.doctorHourly"]', fmtEurHour(state.now.doctorHourly));
+      setText('[data-readonly="ideal.doctorHoursMonth"]', fmtHours(state.now.doctorHoursMonth));
     }
 
     function renderCompare(cNow, cIdeal){
-      var presentYearly = state.now.yearlyRevenue;
-      var idealYearly = presentYearly + (cIdeal.monthlyRevenueLtv * 12);
-      var gap = idealYearly - presentYearly;
+      var presentAnnual = cNow.annualLostRevenue;
+      var idealAnnual = cIdeal.netBenefitMonthly * 12;
+      var totalDiff = presentAnnual + idealAnnual;
 
-      setText('[data-compare="presentYearly"]', fmtEUR(presentYearly));
-      setText('[data-compare="presentMonthly"]', '/μήνα: ' + fmtEUR(presentYearly / 12));
-      setText('[data-compare="idealYearly"]', fmtEUR(idealYearly));
-      setText('[data-compare="idealMonthly"]', '/μήνα: ' + fmtEUR(idealYearly / 12));
-      renderAnimated(document.getElementById('gapOutput'), gap, fmtEUR);
+      setText('[data-compare="presentAnnual"]', fmtEUR(presentAnnual));
+      setText('[data-compare="idealAnnual"]', fmtEUR(idealAnnual));
+      renderAnimated(document.getElementById('gapOutput'), totalDiff, fmtEUR);
 
-      setText('[data-arrow="roas"]', fmtX1(cNow.roas) + ' ➔ ' + fmtX1(cIdeal.adRoasLtv));
-      setText('[data-arrow="monthlyRevenue"]', fmtEUR(cNow.monthlyAdRevenue) + ' ➔ ' + fmtEUR(cIdeal.monthlyRevenueLtv));
-      setText('[data-arrow="monthlyInvestment"]', fmtEUR(cNow.totalInvestment) + ' ➔ ' + fmtEUR(cIdeal.totalInvestment));
-      setText('[data-arrow="netProfit"]', fmtEUR(cNow.netProfit) + ' ➔ ' + fmtEUR(cIdeal.netProfit));
+      var afterMissedCalls = cNow.missedCallsPerMonth * (1 - state.ideal.reductionPct / 100);
+      setText('[data-arrow="missedCalls"]', fmtInt(cNow.missedCallsPerMonth) + ' ➔ ' + fmtInt(afterMissedCalls));
+      setText('[data-arrow="revenue"]', fmtEUR(cNow.lostRevenueMonthly) + ' ➔ ' + fmtEUR(cIdeal.recoveredRevenueMonthly));
+      setText('[data-arrow="cost"]', fmtEUR(cNow.totalMonthlyCost) + ' ➔ ' + fmtEUR(state.ideal.monthlyRetainer));
+      setText('[data-arrow="netResult"]', fmtEUR(-cNow.totalMonthlyCost) + ' ➔ ' + fmtEUR(cIdeal.netBenefitMonthly));
 
-      var netGapMonthly = cIdeal.netProfit - cNow.netProfit;
-      setText('[data-summary="netGapMonthly"]', fmtEUR(netGapMonthly));
-      setText('[data-summary="netGapYearly"]', fmtEUR(netGapMonthly * 12));
+      setText('[data-summary="paybackMonths"]', fmtMonths(cIdeal.paybackMonths));
     }
 
     function recalcAll(){
       var cNow = calcNow();
-      var cIdeal = calcIdeal();
+      var cIdeal = calcIdeal(cNow);
       renderNow(cNow);
       renderIdeal(cIdeal);
       renderCompare(cNow, cIdeal);
@@ -301,9 +292,9 @@
 
     /* ---- scenario presets (Tab 2 — γεμίζουν όλα τα πεδία μαζί) ---- */
     var scenarios = {
-      A:          { targetAOV:80,  targetCustomers:50,  ltv:2, profitMargin:30, adSpend:1000, agencyFee:500,  setupFee:500 },
-      B:          { targetAOV:150, targetCustomers:200, ltv:3, profitMargin:35, adSpend:4000, agencyFee:1200, setupFee:1000 },
-      breakeven:  { targetAOV:100, targetCustomers:7,   ltv:1, profitMargin:20, adSpend:500,  agencyFee:200,  setupFee:0 }
+      conservative: { reductionPct:70 },
+      realistic:    { reductionPct:90 },
+      ambitious:    { reductionPct:100 }
     };
     document.querySelectorAll('.scenario-btn').forEach(function(btn){
       btn.addEventListener('click', function(){
@@ -324,18 +315,6 @@
       });
     });
 
-    /* ---- mini marketing-package presets (Tab 2, col 2 only) ---- */
-    var miniPresets = {
-      A: { adSpend:800,  agencyFee:400,  setupFee:300 },
-      B: { adSpend:3000, agencyFee:1000, setupFee:800 }
-    };
-    document.querySelectorAll('.mini-preset-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var p = miniPresets[btn.dataset.miniPreset];
-        Object.keys(p).forEach(function(field){ setVal('ideal', field, p[field]); });
-      });
-    });
-
     /* ---- stat-card reveal toggle ---- */
     document.querySelectorAll('.reveal-toggle').forEach(function(btn){
       var tab = btn.dataset.revealToggle;
@@ -351,10 +330,10 @@
     var exportBtn = document.getElementById('exportReport');
     if(exportBtn){
       exportBtn.addEventListener('click', function(){
-        var cNow = calcNow(), cIdeal = calcIdeal();
-        var presentYearly = state.now.yearlyRevenue;
-        var idealYearly = presentYearly + cIdeal.monthlyRevenueLtv * 12;
-        var gap = idealYearly - presentYearly;
+        var cNow = calcNow(), cIdeal = calcIdeal(cNow);
+        var presentAnnual = cNow.annualLostRevenue;
+        var idealAnnual = cIdeal.netBenefitMonthly * 12;
+        var totalDiff = presentAnnual + idealAnnual;
         var html = '<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8">' +
           '<title>Υπολογιστής Διαφευγόντων Κερδών — Αναφορά</title>' +
           '<style>body{font-family:Georgia,serif;background:#0e1b19;color:#f3efe2;padding:40px;max-width:720px;margin:0 auto;}' +
@@ -363,22 +342,27 @@
           'td:last-child{text-align:right;font-weight:bold;} .gap{color:#c2543c;font-size:28px;font-weight:bold;}</style></head><body>' +
           '<h1>Υπολογιστής Διαφευγόντων Κερδών</h1>' +
           '<h2>📍 Παρούσα Φάση</h2><table>' +
-          '<tr><td>Ετήσιος Τζίρος</td><td>' + fmtEUR(state.now.yearlyRevenue) + '</td></tr>' +
-          '<tr><td>ROAS</td><td>' + fmtX1(cNow.roas) + '</td></tr>' +
-          '<tr><td>Μηνιαίος Τζίρος από Διαφημίσεις</td><td>' + fmtEUR(cNow.monthlyAdRevenue) + '</td></tr>' +
-          '<tr><td>Συνολική Μηνιαία Επένδυση</td><td>' + fmtEUR(cNow.totalInvestment) + '</td></tr>' +
-          '<tr><td>Καθαρό Μηνιαίο Κέρδος</td><td>' + fmtEUR(cNow.netProfit) + '</td></tr></table>' +
-          '<h2>🎯 Ιδανική Φάση</h2><table>' +
-          '<tr><td>Στόχος AOV</td><td>' + fmtEUR(state.ideal.targetAOV) + '</td></tr>' +
-          '<tr><td>Στόχος Νέων Πελατών</td><td>' + fmtInt(state.ideal.targetCustomers) + '</td></tr>' +
-          '<tr><td>LTV</td><td>' + fmtX0(state.ideal.ltv) + '</td></tr>' +
-          '<tr><td>Ad ROAS (με LTV)</td><td>' + fmtX1(cIdeal.adRoasLtv) + '</td></tr>' +
-          '<tr><td>Μηνιαίος Τζίρος (με LTV)</td><td>' + fmtEUR(cIdeal.monthlyRevenueLtv) + '</td></tr>' +
-          '<tr><td>Καθαρό Μηνιαίο Κέρδος</td><td>' + fmtEUR(cIdeal.netProfit) + '</td></tr></table>' +
+          '<tr><td>Κλήσεις/Εβδομάδα</td><td>' + fmtInt(state.now.weeklyCalls) + '</td></tr>' +
+          '<tr><td>Αναπάντητες Κλήσεις</td><td>' + fmtPct(state.now.missedPct) + '</td></tr>' +
+          '<tr><td>Χαμένες Κλήσεις/Μήνα</td><td>' + fmtInt(cNow.missedCallsPerMonth) + '</td></tr>' +
+          '<tr><td>Χαμένα Έσοδα/Μήνα</td><td>' + fmtEUR(cNow.lostRevenueMonthly) + '</td></tr>' +
+          '<tr><td>Κόστος Γραμματείας ανά Κλήση</td><td>' + fmtEUR(cNow.secretaryCostPerCall) + '</td></tr>' +
+          '<tr><td>Κόστος Χρόνου Γιατρού/Μήνα</td><td>' + fmtEUR(cNow.doctorTimeCostMonthly) + '</td></tr>' +
+          '<tr><td>Συνολικό Μηνιαίο Κόστος</td><td>' + fmtEUR(cNow.totalMonthlyCost) + '</td></tr>' +
+          '<tr><td>Ετήσιο Χαμένο Έσοδο</td><td>' + fmtEUR(cNow.annualLostRevenue) + '</td></tr></table>' +
+          '<h2>🎯 Ιδανική Φάση (με Voice Agent)</h2><table>' +
+          '<tr><td>% Λιγότερων Χαμένων Κλήσεων</td><td>' + fmtPct(state.ideal.reductionPct) + '</td></tr>' +
+          '<tr><td>Ανακτημένες Κλήσεις/Μήνα</td><td>' + fmtInt(cIdeal.recoveredCallsPerMonth) + '</td></tr>' +
+          '<tr><td>Ανακτημένα Έσοδα/Μήνα</td><td>' + fmtEUR(cIdeal.recoveredRevenueMonthly) + '</td></tr>' +
+          '<tr><td>Μηνιαίο Retainer</td><td>' + fmtEUR(state.ideal.monthlyRetainer) + '</td></tr>' +
+          '<tr><td>Εφάπαξ Setup Fee</td><td>' + fmtEUR(state.ideal.setupFee) + '</td></tr>' +
+          '<tr><td>Καθαρό Όφελος/Μήνα</td><td>' + fmtEUR(cIdeal.netBenefitMonthly) + '</td></tr>' +
+          '<tr><td>ROI</td><td>' + fmtX1(cIdeal.roi) + '</td></tr>' +
+          '<tr><td>Απόσβεση Setup Fee σε</td><td>' + fmtMonths(cIdeal.paybackMonths) + '</td></tr></table>' +
           '<h2>📊 Σύγκριση</h2><table>' +
-          '<tr><td>Παρούσα Φάση (Ετήσιος Τζίρος)</td><td>' + fmtEUR(presentYearly) + '</td></tr>' +
-          '<tr><td>Ιδανική Φάση (Στόχος Έτους)</td><td>' + fmtEUR(idealYearly) + '</td></tr>' +
-          '</table><p class="gap">Ετήσια Διαφεύγοντα Κέρδη: ' + fmtEUR(gap) + '</p></body></html>';
+          '<tr><td>Παρούσα Φάση (Ετήσιο Χαμένο Έσοδο)</td><td>' + fmtEUR(presentAnnual) + '</td></tr>' +
+          '<tr><td>Με Voice Agent (Ετήσιο Καθαρό Όφελος)</td><td>' + fmtEUR(idealAnnual) + '</td></tr>' +
+          '</table><p class="gap">Συνολική Ετήσια Διαφορά: ' + fmtEUR(totalDiff) + '</p></body></html>';
         var blob = new Blob([html], { type: 'text/html' });
         var url = URL.createObjectURL(blob);
         var a = document.createElement('a');
@@ -393,8 +377,8 @@
 
     /* ---- init ---- */
     document.querySelectorAll('[data-slider]').forEach(function(s){ updateFill(s); });
-    setActiveField('now', 'yearlyRevenue', true);
-    setActiveField('ideal', 'targetAOV', true);
+    setActiveField('now', 'weeklyCalls', true);
+    setActiveField('ideal', 'reductionPct', true);
     recalcAll();
   })();
 
