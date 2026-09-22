@@ -143,10 +143,17 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 
 /* ---------- Calculator ---------- */
 .calc-section{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-.calc-grid{ display:grid; grid-template-columns:0.95fr 1.05fr; gap:56px; align-items:start; }
-.calc-inputs label{ display:block; font-size:13.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.06em; }
-.calc-field{ margin-bottom:26px; }
-.calc-field:last-child{ margin-bottom:0; }
+
+/* Generic small uppercase eyebrow-style label, reused across the tool */
+.tiny{ font-size:13px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.1em; }
+
+/* Outer premium-tool card */
+.calc-tool{
+  background:var(--bg-card); border:1px solid var(--gold-dim); border-radius:var(--radius);
+  box-shadow:0 24px 60px rgba(0,0,0,0.35); padding:44px 48px;
+}
+.calc-tool-title{ font-size:30px; margin-bottom:10px; }
+.calc-tool-sub{ color:var(--ink-dim); font-size:15.5px; max-width:640px; margin-bottom:30px; }
 
 /* Tab pills */
 .calc-tabs{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:34px; }
@@ -159,6 +166,8 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .calc-tab:hover{ border-color:var(--gold); color:var(--ink); }
 .calc-tab.active{ background:var(--gold); color:#12211f; border-color:var(--gold); }
 .calc-tab:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+.calc-tab .tab-sub{ opacity:.65; font-weight:500; }
+.calc-tab .tab-sub::before{ content:" · "; opacity:.5; }
 
 /* Tab panels: ~250ms fade, instant under reduced motion */
 .calc-panel{ display:none; }
@@ -171,17 +180,37 @@ nav .btn{ padding:10px 20px; font-size:14px; }
   to{ opacity:1; transform:none; }
 }
 
-/* Field cards + value badges */
-.field-card{
-  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
-  padding:26px 30px;
+/* Column layout: outer .calc-tool (bg-card) > .calc-col contrast layer
+   (bg-alt) > individual clickable .calc-field rows */
+.calc-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-bottom:28px; }
+.calc-col{
+  background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px;
 }
-.field-head{ display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:18px; }
-.field-head label{ margin:0; }
+.calc-col-title{
+  display:block; font-size:12.5px; text-transform:uppercase; letter-spacing:0.1em;
+  color:var(--gold); font-weight:600; margin-bottom:16px;
+}
+
+.calc-field{
+  cursor:pointer; border:1px solid transparent; border-radius:var(--radius);
+  padding:14px 14px 16px; margin-bottom:12px;
+  transition:border-color .2s ease, background .2s ease;
+}
+.calc-field:last-child{ margin-bottom:0; }
+.calc-field:hover{ border-color:rgba(201,162,39,0.3); }
+.calc-field.active{ border-color:var(--gold); background:rgba(201,162,39,0.06); }
+.calc-field:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+.field-head{ display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:12px; }
+.field-head label{
+  margin:0; font-size:13px; color:var(--ink-dim); text-transform:uppercase;
+  letter-spacing:0.05em; font-weight:500; cursor:pointer;
+}
 .value-badge{
-  font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; white-space:nowrap;
+  font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600; white-space:nowrap;
   color:var(--gold); background:rgba(201,162,39,0.07); border:1px solid rgba(201,162,39,0.5);
-  padding:6px 14px; border-radius:var(--radius);
+  padding:6px 12px; border-radius:var(--radius);
 }
 .value-badge.teal{
   color:var(--teal); background:rgba(74,150,131,0.08); border-color:rgba(74,150,131,0.5);
@@ -189,25 +218,114 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .field-note{ color:var(--ink-dim); font-size:14.5px; margin:0; }
 .field-head + .field-note{ margin-top:-6px; }
 
-/* Ideal / annual result variants (raised specificity so it always
-   wins over the base .calc-result .big coral rule, regardless of
-   source order) */
-.ideal-result{ border-color:rgba(74,150,131,0.6); }
-.calc-result.ideal-result .big{ color:var(--teal); }
-.annual-result{ max-width:640px; margin:26px auto 0; text-align:center; }
-
-/* Comparison columns */
-.compare-cols{ display:grid; grid-template-columns:1fr 1fr; gap:26px; }
-.compare-col{
-  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
-  padding:26px 30px;
+.preview-box{
+  margin-top:6px; border:1px dashed var(--gold-dim); border-radius:var(--radius);
+  padding:14px 16px; display:flex; justify-content:space-between; align-items:center; gap:10px;
 }
-.compare-col .tiny{ font-size:13px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; }
-.compare-col.loss{ border-top:3px solid var(--coral); }
-.compare-col.gain{ border-top:3px solid var(--teal); }
-.cmp-num{ font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; margin-bottom:10px; font-variant-numeric:tabular-nums; }
-.compare-col.loss .cmp-num{ color:var(--coral); }
-.compare-col.gain .cmp-num{ color:var(--teal); }
+.preview-label{ font-size:12.5px; color:var(--ink-dim); }
+.preview-value{ font-family:'IBM Plex Mono',monospace; font-size:17px; font-weight:600; color:var(--gold); }
+
+/* Scenario quick-buttons (Tab 2) */
+.scenario-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
+.scenario-label{ font-size:12.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-dim); font-weight:600; }
+.scenario-btn{
+  font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; color:var(--ink-dim);
+  background:transparent; border:1px solid var(--line); border-radius:999px;
+  padding:8px 18px; cursor:pointer; transition:background .2s ease, color .2s ease, border-color .2s ease;
+}
+.scenario-btn:hover{ border-color:var(--gold); color:var(--ink); }
+.scenario-btn.active{ background:var(--gold); color:#12211f; border-color:var(--gold); }
+
+/* Mini marketing-package presets (Tab 2, column 2) */
+.mini-presets{ display:flex; gap:8px; margin-bottom:16px; }
+.mini-preset-btn{
+  font-family:'Inter',sans-serif; font-size:12.5px; font-weight:600; color:var(--teal);
+  background:rgba(74,150,131,0.08); border:1px solid rgba(74,150,131,0.4); border-radius:var(--radius);
+  padding:6px 12px; cursor:pointer; transition:border-color .2s ease;
+}
+.mini-preset-btn:hover{ border-color:var(--teal); }
+
+/* Bottom row: keypad + results, shared by Tab 1 and Tab 2 */
+.calc-bottom{ display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:start; }
+
+.keypad{ background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius); padding:20px; }
+.keypad-title{ font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-weight:600; margin-bottom:6px; }
+.keypad-field-name{ font-size:13.5px; color:var(--ink); margin-bottom:16px; min-height:34px; line-height:1.3; }
+.keypad-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.keypad-key{
+  font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:var(--ink);
+  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:12px 0; cursor:pointer; transition:background .15s ease, border-color .15s ease;
+}
+.keypad-key:hover{ border-color:var(--gold); }
+.keypad-key:active{ background:rgba(201,162,39,0.12); }
+.keypad-key:focus-visible{ outline:2px solid var(--gold); outline-offset:1px; }
+.keypad-key-c{ color:var(--coral); }
+.keypad-key-back{ color:var(--ink-dim); }
+
+.calc-results{ background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius); padding:24px 26px; }
+.results-header{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px; }
+.results-title{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-dim); font-weight:600; }
+.reveal-toggle{
+  font-family:'Inter',sans-serif; font-size:13px; font-weight:600; color:var(--gold);
+  background:transparent; border:1px solid var(--gold-dim); border-radius:var(--radius);
+  padding:7px 14px; cursor:pointer; transition:border-color .2s ease, background .2s ease;
+}
+.reveal-toggle:hover{ border-color:var(--gold); background:rgba(201,162,39,0.06); }
+
+/* Stat cards: blurred/low-opacity until individually hovered, or all
+   revealed together via the toggle button — only inside Tab 1 / Tab 2
+   result rows (identified by [data-stats]); Tab 3's X→Y row stays plain */
+.stats-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px; }
+.stat-card{
+  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px; display:flex; flex-direction:column; gap:6px;
+  transition:filter .3s ease, opacity .3s ease;
+}
+.stats-row[data-stats] .stat-card{ filter:blur(4px); opacity:.15; }
+.stats-row[data-stats] .stat-card:hover,
+.stats-row[data-stats] .stat-card:focus-visible,
+.stats-row[data-stats].reveal-all .stat-card{ filter:none; opacity:1; }
+.stat-card:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+.stat-label{ font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-dim); }
+.stat-value{ font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:600; color:var(--gold); font-variant-numeric:tabular-nums; }
+.stat-card.teal .stat-value{ color:var(--teal); }
+.stat-status{ font-size:11.5px; color:var(--ink-dim); }
+.stat-status.zone-low{ color:var(--coral); }
+.stat-status.zone-high{ color:var(--teal); }
+
+.summary-rows{ }
+.summary-row{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:12px 0; border-bottom:1px solid var(--line); }
+.summary-row:last-child{ border-bottom:none; }
+.summary-label{ font-size:14px; color:var(--ink-dim); }
+.summary-value{ font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; }
+.summary-value.coral{ color:var(--coral); }
+.summary-value.teal{ color:var(--teal); }
+
+/* Tab 3 — comparison */
+.compare-header{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:24px; }
+.export-btn{
+  font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; color:var(--ink);
+  background:transparent; border:1px solid var(--line); border-radius:var(--radius);
+  padding:9px 18px; cursor:pointer; transition:border-color .2s ease;
+}
+.export-btn:hover{ border-color:var(--gold); }
+
+.compare-top-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:28px; }
+.compare-box{
+  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:24px; display:flex; flex-direction:column; gap:8px;
+}
+.compare-box-value{ font-family:'IBM Plex Mono',monospace; font-size:clamp(24px,3vw,32px); font-weight:600; font-variant-numeric:tabular-nums; color:var(--ink); }
+.compare-box-sub{ font-size:13px; color:var(--ink-dim); }
+.compare-box.ideal{ border-color:rgba(74,150,131,0.5); }
+.compare-box.ideal .compare-box-value{ color:var(--teal); }
+.compare-box.gap{ border-color:var(--coral); background:rgba(194,84,60,0.06); box-shadow:inset 0 0 0 1px rgba(194,84,60,0.2); }
+.compare-box.gap .compare-box-value{ color:var(--coral); font-size:clamp(30px,4vw,42px); }
+
+/* Tab 3 stat row: plain "X ➔ Y" cards, never blurred */
+.stats-row.cmp .stat-card{ filter:none; opacity:1; }
+.stat-arrow{ font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums; }
 
 /* Custom slider: gradient track fill (via --fill) + gold thumb with drag glow */
 .calc-field input[type=range]{
@@ -266,16 +384,6 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .calc-field input[type=range]:focus-visible::-moz-range-thumb{
   box-shadow:0 0 0 6px rgba(201,162,39,0.25), 0 2px 6px rgba(0,0,0,0.45);
 }
-
-.calc-result{
-  background:var(--bg-card); border:1px solid var(--gold-dim); border-radius:var(--radius);
-  padding:40px; text-align:left;
-}
-.calc-result .tiny{ font-size:13px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; }
-.calc-result .big{ font-family:'IBM Plex Mono',monospace; font-size:clamp(38px,5vw,58px); color:var(--coral); line-height:1; margin-bottom:6px; font-variant-numeric:tabular-nums; }
-.calc-result .sub{ color:var(--ink-dim); font-size:14.5px; margin-bottom:26px; }
-.calc-result .divider{ height:1px; background:var(--line); margin:26px 0; }
-.calc-result .compare .val{ font-family:'IBM Plex Mono',monospace; color:var(--teal); font-size:22px; }
 
 /* ---------- Pain ---------- */
 .pain-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:50px; }
@@ -398,7 +506,7 @@ section.in-view .reveal{ opacity:1; transform:none; }
 
 /* ---------- Responsive ---------- */
 @media (max-width:860px){
-  .hero-grid, .calc-grid, .mech-grid, .apply-grid{ grid-template-columns:1fr; }
+  .hero-grid, .mech-grid, .apply-grid{ grid-template-columns:1fr; }
   .pain-grid{ grid-template-columns:1fr; }
   .proof-strip{ grid-template-columns:1fr; }
   .proof-cell{ border-right:none; border-bottom:1px solid var(--line); }
@@ -408,10 +516,18 @@ section.in-view .reveal{ opacity:1; transform:none; }
   /* Στο mobile το Calendly απλώνεται κάθετα — θέλει παραπάνω ύψος
      για να διαλέγεις μέρα/ώρα χωρίς εσωτερικό scroll */
   .calendly-embed{ height:980px; }
-  /* Calculator: stacked cards, tabs σε μία σειρά χωρίς οριζόντιο scroll */
+  /* Calculator: stacked columns/cards, tabs χωρίς οριζόντιο scroll */
+  .calc-tool{ padding:26px 20px; }
   .calc-tabs{ gap:8px; }
   .calc-tab{ padding:8px 13px; font-size:12.5px; }
-  .field-card, .compare-col{ padding:22px 20px; }
-  .compare-cols{ grid-template-columns:1fr; }
+  .calc-cols{ grid-template-columns:1fr; }
+  .calc-bottom{ grid-template-columns:1fr; }
+  .stats-row{ grid-template-columns:1fr 1fr; }
+  .compare-top-row{ grid-template-columns:1fr; }
   .field-head{ flex-wrap:wrap; gap:10px; }
+  .scenario-row, .compare-header{ gap:8px; }
+}
+
+@media (max-width:480px){
+  .calc-tab .tab-sub{ display:none; }
 }
