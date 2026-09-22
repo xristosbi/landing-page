@@ -143,22 +143,29 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 
 /* ---------- Calculator ---------- */
 .calc-section{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+/* Ο υπολογιστής είναι πυκνό, 3-column εργαλείο — του δίνουμε περισσότερο
+   οριζόντιο χώρο από το στάνταρ 1080px .wrap του υπόλοιπου site. Μόνο
+   αυτό το section επηρεάζεται. */
+#calculator .wrap{ max-width:1320px; }
 
-/* Generic small uppercase eyebrow-style label, reused across the tool */
-.tiny{ font-size:13px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.1em; }
+/* Generic small eyebrow-style label, reused across the tool */
+.tiny{ font-size:13px; color:var(--ink-dim); letter-spacing:0.02em; }
 
-/* Outer premium-tool card */
+/* Outer premium-tool card — τοπικά radius tokens (soft/rounded), χωρίς
+   να αγγίζουν το γενικό --radius:2px που χρησιμοποιεί το υπόλοιπο site */
 .calc-tool{
-  background:var(--bg-card); border:1px solid var(--gold-dim); border-radius:var(--radius);
+  --r-outer:24px; --r-mid:16px; --r-inner:12px;
+  background:var(--bg-card); border:1px solid var(--gold-dim); border-radius:var(--r-outer);
   box-shadow:0 24px 60px rgba(0,0,0,0.35); padding:44px 48px;
 }
 .calc-tool-title{ font-size:30px; margin-bottom:10px; }
 .calc-tool-sub{ color:var(--ink-dim); font-size:15.5px; max-width:640px; margin-bottom:30px; }
 
-/* Tab pills */
+/* Tab pills — μόνοι οι τίτλοι των 3 tabs μένουν uppercase */
 .calc-tabs{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:34px; }
 .calc-tab{
   font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:0.02em;
+  text-transform:uppercase;
   padding:10px 22px; border-radius:999px; cursor:pointer;
   background:transparent; color:var(--ink-dim); border:1px solid var(--line);
   transition:background .2s ease, color .2s ease, border-color .2s ease;
@@ -166,7 +173,7 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .calc-tab:hover{ border-color:var(--gold); color:var(--ink); }
 .calc-tab.active{ background:var(--gold); color:#12211f; border-color:var(--gold); }
 .calc-tab:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
-.calc-tab .tab-sub{ opacity:.65; font-weight:500; }
+.calc-tab .tab-sub{ text-transform:none; opacity:.65; font-weight:500; }
 .calc-tab .tab-sub::before{ content:" · "; opacity:.5; }
 
 /* Tab panels: ~250ms fade, instant under reduced motion */
@@ -184,16 +191,16 @@ nav .btn{ padding:10px 20px; font-size:14px; }
    (bg-alt) > individual clickable .calc-field rows */
 .calc-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-bottom:28px; }
 .calc-col{
-  background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--r-mid);
   padding:22px;
 }
 .calc-col-title{
-  display:block; font-size:12.5px; text-transform:uppercase; letter-spacing:0.1em;
+  display:block; font-size:12.5px; letter-spacing:0.02em;
   color:var(--gold); font-weight:600; margin-bottom:16px;
 }
 
 .calc-field{
-  cursor:pointer; border:1px solid transparent; border-radius:var(--radius);
+  cursor:pointer; border:1px solid transparent; border-radius:var(--r-inner);
   padding:14px 14px 16px; margin-bottom:12px;
   transition:border-color .2s ease, background .2s ease;
 }
@@ -204,13 +211,13 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 
 .field-head{ display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:12px; }
 .field-head label{
-  margin:0; font-size:13px; color:var(--ink-dim); text-transform:uppercase;
-  letter-spacing:0.05em; font-weight:500; cursor:pointer;
+  margin:0; font-size:13px; color:var(--ink-dim);
+  letter-spacing:0.01em; font-weight:500; cursor:pointer;
 }
 .value-badge{
   font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600; white-space:nowrap;
   color:var(--gold); background:rgba(201,162,39,0.07); border:1px solid rgba(201,162,39,0.5);
-  padding:6px 12px; border-radius:var(--radius);
+  padding:6px 12px; border-radius:var(--r-inner);
 }
 .value-badge.teal{
   color:var(--teal); background:rgba(74,150,131,0.08); border-color:rgba(74,150,131,0.5);
@@ -219,7 +226,7 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .field-head + .field-note{ margin-top:-6px; }
 
 .preview-box{
-  margin-top:6px; border:1px dashed var(--gold-dim); border-radius:var(--radius);
+  margin-top:6px; border:1px dashed var(--gold-dim); border-radius:var(--r-inner);
   padding:14px 16px; display:flex; justify-content:space-between; align-items:center; gap:10px;
 }
 .preview-label{ font-size:12.5px; color:var(--ink-dim); }
@@ -227,7 +234,7 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 
 /* Scenario quick-buttons (Tab 2) */
 .scenario-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
-.scenario-label{ font-size:12.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-dim); font-weight:600; }
+.scenario-label{ font-size:12.5px; letter-spacing:0.01em; color:var(--ink-dim); font-weight:600; }
 .scenario-btn{
   font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; color:var(--ink-dim);
   background:transparent; border:1px solid var(--line); border-radius:999px;
@@ -240,7 +247,7 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .mini-presets{ display:flex; gap:8px; margin-bottom:16px; }
 .mini-preset-btn{
   font-family:'Inter',sans-serif; font-size:12.5px; font-weight:600; color:var(--teal);
-  background:rgba(74,150,131,0.08); border:1px solid rgba(74,150,131,0.4); border-radius:var(--radius);
+  background:rgba(74,150,131,0.08); border:1px solid rgba(74,150,131,0.4); border-radius:var(--r-inner);
   padding:6px 12px; cursor:pointer; transition:border-color .2s ease;
 }
 .mini-preset-btn:hover{ border-color:var(--teal); }
@@ -248,13 +255,13 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 /* Bottom row: keypad + results, shared by Tab 1 and Tab 2 */
 .calc-bottom{ display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:start; }
 
-.keypad{ background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius); padding:20px; }
-.keypad-title{ font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-weight:600; margin-bottom:6px; }
+.keypad{ background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--r-mid); padding:20px; }
+.keypad-title{ font-size:12px; letter-spacing:0.02em; color:var(--gold); font-weight:600; margin-bottom:6px; }
 .keypad-field-name{ font-size:13.5px; color:var(--ink); margin-bottom:16px; min-height:34px; line-height:1.3; }
 .keypad-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
 .keypad-key{
   font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:var(--ink);
-  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--r-inner);
   padding:12px 0; cursor:pointer; transition:background .15s ease, border-color .15s ease;
 }
 .keypad-key:hover{ border-color:var(--gold); }
@@ -263,12 +270,12 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .keypad-key-c{ color:var(--coral); }
 .keypad-key-back{ color:var(--ink-dim); }
 
-.calc-results{ background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius); padding:24px 26px; }
+.calc-results{ background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--r-mid); padding:24px 26px; }
 .results-header{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px; }
-.results-title{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-dim); font-weight:600; }
+.results-title{ font-size:13px; letter-spacing:0.01em; color:var(--ink-dim); font-weight:600; }
 .reveal-toggle{
   font-family:'Inter',sans-serif; font-size:13px; font-weight:600; color:var(--gold);
-  background:transparent; border:1px solid var(--gold-dim); border-radius:var(--radius);
+  background:transparent; border:1px solid var(--gold-dim); border-radius:var(--r-inner);
   padding:7px 14px; cursor:pointer; transition:border-color .2s ease, background .2s ease;
 }
 .reveal-toggle:hover{ border-color:var(--gold); background:rgba(201,162,39,0.06); }
@@ -278,7 +285,7 @@ nav .btn{ padding:10px 20px; font-size:14px; }
    result rows (identified by [data-stats]); Tab 3's X→Y row stays plain */
 .stats-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px; }
 .stat-card{
-  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--r-inner);
   padding:16px; display:flex; flex-direction:column; gap:6px;
   transition:filter .3s ease, opacity .3s ease;
 }
@@ -287,7 +294,7 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .stats-row[data-stats] .stat-card:focus-visible,
 .stats-row[data-stats].reveal-all .stat-card{ filter:none; opacity:1; }
 .stat-card:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
-.stat-label{ font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-dim); }
+.stat-label{ font-size:11.5px; letter-spacing:0.01em; color:var(--ink-dim); }
 .stat-value{ font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:600; color:var(--gold); font-variant-numeric:tabular-nums; }
 .stat-card.teal .stat-value{ color:var(--teal); }
 .stat-status{ font-size:11.5px; color:var(--ink-dim); }
@@ -306,14 +313,14 @@ nav .btn{ padding:10px 20px; font-size:14px; }
 .compare-header{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:24px; }
 .export-btn{
   font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; color:var(--ink);
-  background:transparent; border:1px solid var(--line); border-radius:var(--radius);
+  background:transparent; border:1px solid var(--line); border-radius:var(--r-inner);
   padding:9px 18px; cursor:pointer; transition:border-color .2s ease;
 }
 .export-btn:hover{ border-color:var(--gold); }
 
 .compare-top-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:28px; }
 .compare-box{
-  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--bg-card); border:1px solid var(--line); border-radius:var(--r-mid);
   padding:24px; display:flex; flex-direction:column; gap:8px;
 }
 .compare-box-value{ font-family:'IBM Plex Mono',monospace; font-size:clamp(24px,3vw,32px); font-weight:600; font-variant-numeric:tabular-nums; color:var(--ink); }
