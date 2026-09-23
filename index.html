@@ -110,6 +110,13 @@
               </div>
               <input type="range" data-slider="now.avgValue" min="20" max="1000" step="10" value="100">
             </div>
+            <div class="calc-field" data-tab="now" data-field="conversionPct" tabindex="0">
+              <div class="field-head">
+                <label>% Χαμένων Κλήσεων που θα Γινόντουσαν Ραντεβού</label>
+                <span class="value-badge" data-badge="now.conversionPct">30%</span>
+              </div>
+              <input type="range" data-slider="now.conversionPct" min="10" max="80" step="5" value="30">
+            </div>
             <p class="field-note" id="missedCallsReadout">≈ 13 χαμένες κλήσεις/εβδομάδα</p>
           </div>
           <div class="calc-col">
@@ -176,11 +183,11 @@
             <div class="stats-row" data-stats="now">
               <div class="stat-card" tabindex="0">
                 <span class="stat-label">Χαμένες Κλήσεις/Μήνα</span>
-                <span class="stat-value" data-stat="now.missedCallsPerMonth">55</span>
+                <span class="stat-value" data-stat="now.missedCallsPerMonth">54</span>
               </div>
               <div class="stat-card" tabindex="0">
                 <span class="stat-label">Χαμένα Έσοδα/Μήνα</span>
-                <span class="stat-value" style="color:var(--coral)" data-stat="now.lostRevenueMonthly">€5.375</span>
+                <span class="stat-value" style="color:var(--coral)" data-stat="now.lostRevenueMonthly">€1.613</span>
               </div>
               <div class="stat-card" tabindex="0">
                 <span class="stat-label">Κόστος Γραμματείας ανά Κλήση</span>
@@ -194,11 +201,11 @@
             <div class="summary-rows">
               <div class="summary-row">
                 <span class="summary-label">Συνολικό Μηνιαίο Κόστος (Χαμένα Έσοδα + Γραμματεία + Χρόνος Γιατρού)</span>
-                <span class="summary-value coral" data-summary="now.totalMonthlyCost">€7.075</span>
+                <span class="summary-value coral" data-summary="now.totalMonthlyCost">€3.313</span>
               </div>
               <div class="summary-row">
                 <span class="summary-label">Ετήσιο Χαμένο Έσοδο</span>
-                <span class="summary-value coral" data-summary="now.annualLostRevenue">€84.900</span>
+                <span class="summary-value coral" data-summary="now.annualLostRevenue">€39.750</span>
               </div>
             </div>
           </div>
@@ -301,29 +308,29 @@
             <div class="stats-row" data-stats="ideal">
               <div class="stat-card teal" tabindex="0">
                 <span class="stat-label">Ανακτημένες Κλήσεις/Μήνα</span>
-                <span class="stat-value" data-stat="ideal.recoveredCallsPerMonth">55</span>
+                <span class="stat-value" data-stat="ideal.recoveredCallsPerMonth">54</span>
               </div>
               <div class="stat-card teal" tabindex="0">
                 <span class="stat-label">Ανακτημένα Έσοδα/Μήνα</span>
-                <span class="stat-value" data-stat="ideal.recoveredRevenueMonthly">€5.375</span>
+                <span class="stat-value" data-stat="ideal.recoveredRevenueMonthly">€1.613</span>
               </div>
               <div class="stat-card teal" tabindex="0">
                 <span class="stat-label">Καθαρό Όφελος/Μήνα</span>
-                <span class="stat-value" data-stat="ideal.netBenefitMonthly">€5.075</span>
+                <span class="stat-value" data-stat="ideal.netBenefitMonthly">€1.313</span>
               </div>
               <div class="stat-card teal" tabindex="0">
                 <span class="stat-label">ROI</span>
-                <span class="stat-value" data-stat="ideal.roi">10,4x</span>
+                <span class="stat-value" data-stat="ideal.roi">2,8x</span>
               </div>
             </div>
             <div class="summary-rows">
               <div class="summary-row">
                 <span class="summary-label">Απόσβεση Setup Fee σε</span>
-                <span class="summary-value" data-summary="ideal.paybackMonths">0,4 μήνες</span>
+                <span class="summary-value" data-summary="ideal.paybackMonths">1,5 μήνες</span>
               </div>
               <div class="summary-row">
                 <span class="summary-label">Συνολική Ετήσια Αξία LTV Ασθενών</span>
-                <span class="summary-value teal" data-summary="ideal.annualLtvValue">€132.000</span>
+                <span class="summary-value teal" data-summary="ideal.annualLtvValue">€38.700</span>
               </div>
             </div>
           </div>
@@ -340,11 +347,11 @@
         <div class="compare-top-row">
           <div class="compare-box present">
             <span class="tiny">Παρούσα Φάση (Ετήσιο Χαμένο Έσοδο)</span>
-            <span class="compare-box-value" style="color:var(--coral)" data-compare="presentAnnual">€84.900</span>
+            <span class="compare-box-value" style="color:var(--coral)" data-compare="presentAnnual">€39.750</span>
           </div>
           <div class="compare-box ideal">
             <span class="tiny">Με Voice Agent (Ετήσιο Καθαρό Όφελος)</span>
-            <span class="compare-box-value" data-compare="idealAnnual">€60.900</span>
+            <span class="compare-box-value" data-compare="idealAnnual">€15.750</span>
           </div>
           <div class="compare-box gap">
             <span class="tiny">Συνολική Ετήσια Διαφορά 🎯</span>
@@ -355,26 +362,26 @@
         <div class="stats-row cmp">
           <div class="stat-card">
             <span class="stat-label">Χαμένες Κλήσεις/Μήνα</span>
-            <span class="stat-arrow" data-arrow="missedCalls">55 ➔ 0</span>
+            <span class="stat-arrow" data-arrow="missedCalls">54 ➔ 0</span>
           </div>
           <div class="stat-card">
             <span class="stat-label">Έσοδα/Μήνα</span>
-            <span class="stat-arrow" data-arrow="revenue">€5.375 ➔ €5.375</span>
+            <span class="stat-arrow" data-arrow="revenue">€1.613 ➔ €1.613</span>
           </div>
           <div class="stat-card">
             <span class="stat-label">Μηνιαίο Κόστος</span>
-            <span class="stat-arrow" data-arrow="cost">€7.075 ➔ €300</span>
+            <span class="stat-arrow" data-arrow="cost">€3.313 ➔ €300</span>
           </div>
           <div class="stat-card">
             <span class="stat-label">Καθαρό Αποτέλεσμα/Μήνα</span>
-            <span class="stat-arrow" data-arrow="netResult">−€7.075 ➔ €5.075</span>
+            <span class="stat-arrow" data-arrow="netResult">−€3.313 ➔ €1.313</span>
           </div>
         </div>
 
         <div class="summary-rows">
           <div class="summary-row">
             <span class="summary-label">Απόσβεση σε</span>
-            <span class="summary-value teal" data-summary="paybackMonths">0,4 μήνες</span>
+            <span class="summary-value teal" data-summary="paybackMonths">1,5 μήνες</span>
           </div>
         </div>
       </div>

@@ -42,6 +42,7 @@
       'now.weeklyCalls':       { min:5,   max:300,  step:5,   format:'int' },
       'now.missedPct':         { min:0,   max:60,   step:1,   format:'pct' },
       'now.avgValue':          { min:20,  max:1000, step:10,  format:'eur' },
+      'now.conversionPct':     { min:10,  max:80,   step:5,   format:'pct' },
       'now.secretarySalary':   { min:0,   max:3000, step:50,  format:'eur' },
       'now.hoursOnPhone':      { min:0,   max:60,   step:1,   format:'hours' },
       'now.doctorHourly':      { min:20,  max:500,  step:5,   format:'eurHour' },
@@ -57,6 +58,7 @@
       'now.weeklyCalls': 'Συνολικές Κλήσεις/Εβδομάδα',
       'now.missedPct': '% Αναπάντητων Κλήσεων',
       'now.avgValue': 'Μέση Αξία Ασθενή (€)',
+      'now.conversionPct': '% Χαμένων Κλήσεων που θα Γινόντουσαν Ραντεβού',
       'now.secretarySalary': 'Μηνιαίος Μισθός Γραμματέα (€)',
       'now.hoursOnPhone': 'Ώρες/Εβδομάδα στο Τηλέφωνο',
       'now.doctorHourly': 'Αξία της Ώρας σου (€/ώρα)',
@@ -68,7 +70,7 @@
     };
 
     var state = {
-      now:   { weeklyCalls:50, missedPct:25, avgValue:100, secretarySalary:900, hoursOnPhone:20, doctorHourly:80, doctorHoursMonth:10 },
+      now:   { weeklyCalls:50, missedPct:25, avgValue:100, conversionPct:30, secretarySalary:900, hoursOnPhone:20, doctorHourly:80, doctorHoursMonth:10 },
       ideal: { reductionPct:100, ltvVisits:2, monthlyRetainer:300, setupFee:2000 }
     };
     var activeField = { now:'weeklyCalls', ideal:'reductionPct' };
@@ -171,24 +173,29 @@
       var s = state.now;
       var missedCallsPerWeek = s.weeklyCalls * s.missedPct / 100;
       var missedCallsPerMonth = missedCallsPerWeek * 4.3;
-      var lostRevenueMonthly = missedCallsPerMonth * s.avgValue;
+      /* Μόνο ένα ποσοστό των χαμένων κλήσεων θα γινόταν όντως ραντεβού —
+         αυτή η "αξία ανά χαμένη κλήση" τροφοδοτεί και το Tab 2 (ανακτημένα
+         έσοδα), ώστε η ίδια παραδοχή να ισχύει σε όλη την αλυσίδα. */
+      var valuePerMissedCall = s.avgValue * s.conversionPct / 100;
+      var lostRevenueMonthly = missedCallsPerMonth * valuePerMissedCall;
       var secretaryCostPerCall = s.secretarySalary / (s.weeklyCalls * 4.3);
       var doctorTimeCostMonthly = s.doctorHourly * s.doctorHoursMonth;
       var totalMonthlyCost = lostRevenueMonthly + s.secretarySalary + doctorTimeCostMonthly;
       var annualLostRevenue = totalMonthlyCost * 12;
-      return { missedCallsPerWeek:missedCallsPerWeek, missedCallsPerMonth:missedCallsPerMonth, lostRevenueMonthly:lostRevenueMonthly, secretaryCostPerCall:secretaryCostPerCall, doctorTimeCostMonthly:doctorTimeCostMonthly, totalMonthlyCost:totalMonthlyCost, annualLostRevenue:annualLostRevenue };
+      return { missedCallsPerWeek:missedCallsPerWeek, missedCallsPerMonth:missedCallsPerMonth, valuePerMissedCall:valuePerMissedCall, lostRevenueMonthly:lostRevenueMonthly, secretaryCostPerCall:secretaryCostPerCall, doctorTimeCostMonthly:doctorTimeCostMonthly, totalMonthlyCost:totalMonthlyCost, annualLostRevenue:annualLostRevenue };
     }
 
     function calcIdeal(cNow){
       var s = state.ideal;
       var recoveredCallsPerMonth = cNow.missedCallsPerMonth * s.reductionPct / 100;
-      var recoveredRevenueMonthly = recoveredCallsPerMonth * state.now.avgValue;
+      var recoveredRevenueMonthly = recoveredCallsPerMonth * cNow.valuePerMissedCall;
       var netBenefitMonthly = recoveredRevenueMonthly - s.monthlyRetainer;
       var roi = (netBenefitMonthly * 12) / (s.setupFee + s.monthlyRetainer * 12);
       var ltvPerCustomer = state.now.avgValue * s.ltvVisits;
-      var annualLtvValue = ltvPerCustomer * recoveredCallsPerMonth * 12;
+      var recoveredPatients = recoveredCallsPerMonth * state.now.conversionPct / 100;
+      var annualLtvValue = ltvPerCustomer * recoveredPatients * 12;
       var paybackMonths = netBenefitMonthly > 0 ? s.setupFee / netBenefitMonthly : null;
-      return { recoveredCallsPerMonth:recoveredCallsPerMonth, recoveredRevenueMonthly:recoveredRevenueMonthly, netBenefitMonthly:netBenefitMonthly, roi:roi, ltvPerCustomer:ltvPerCustomer, annualLtvValue:annualLtvValue, paybackMonths:paybackMonths };
+      return { recoveredCallsPerMonth:recoveredCallsPerMonth, recoveredRevenueMonthly:recoveredRevenueMonthly, netBenefitMonthly:netBenefitMonthly, roi:roi, ltvPerCustomer:ltvPerCustomer, recoveredPatients:recoveredPatients, annualLtvValue:annualLtvValue, paybackMonths:paybackMonths };
     }
 
     function renderNow(c){
@@ -345,6 +352,7 @@
           '<tr><td>Κλήσεις/Εβδομάδα</td><td>' + fmtInt(state.now.weeklyCalls) + '</td></tr>' +
           '<tr><td>Αναπάντητες Κλήσεις</td><td>' + fmtPct(state.now.missedPct) + '</td></tr>' +
           '<tr><td>Χαμένες Κλήσεις/Μήνα</td><td>' + fmtInt(cNow.missedCallsPerMonth) + '</td></tr>' +
+          '<tr><td>Χαμένων Κλήσεων που θα Γινόντουσαν Ραντεβού</td><td>' + fmtPct(state.now.conversionPct) + '</td></tr>' +
           '<tr><td>Χαμένα Έσοδα/Μήνα</td><td>' + fmtEUR(cNow.lostRevenueMonthly) + '</td></tr>' +
           '<tr><td>Κόστος Γραμματείας ανά Κλήση</td><td>' + fmtEUR(cNow.secretaryCostPerCall) + '</td></tr>' +
           '<tr><td>Κόστος Χρόνου Γιατρού/Μήνα</td><td>' + fmtEUR(cNow.doctorTimeCostMonthly) + '</td></tr>' +
